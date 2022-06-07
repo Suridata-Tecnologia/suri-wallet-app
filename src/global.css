@@ -1,0 +1,42 @@
+*{
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    background: #fff;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+html, body, #root{
+    height: 100%;
+    width: 100%;
+    background-image: url('https://portal.suridata.com.br/img/Imagem%20Potal%20Suri%20-%20menor.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: 'Numans', sans-serif;
+}
+
+@keyframes fade{
+    from{
+        opacity: 0;
+    }to{
+        opacity: 1;
+    }
+}
+@keyframes move-right{
+    from{
+        transform: translateX(-100%);        
+    }to{
+        transform: translateX(0);
+    } 
+}
+
+@media screen and (max-width: 600px) {    
+    body{
+        font-size: 12px!important;
+    }
+}

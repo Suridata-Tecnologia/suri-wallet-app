@@ -5,7 +5,7 @@ import Login from "./pages/Login";
 const Routes = props => (
   <BrowserRouter>
     <Switch>
-        <Route exact path="/" component={Login} />
+        <Route path="/" element={<Login />}></Route>
     </Switch>
   </BrowserRouter>
 );
