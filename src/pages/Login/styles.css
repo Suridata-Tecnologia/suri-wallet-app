@@ -44,6 +44,35 @@ input:focus{
     width: 100%;
 }
 
+.btn-group{
+    width: 100%!important;
+}
+.btn-outline-info {
+    color: #777!important;
+    border-color: #777!important;
+}
+
+.btn-outline-info:hover {
+    color: #777!important;
+    border-color: #777!important;
+    background-color: #f1f1f1!important;
+}
+
+.title{
+    color: #eee;
+    margin-bottom: 10px;
+}
+
+.password-group{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.password-group input{
+    margin-bottom: 5px;
+}
+
 @media screen and (max-width: 600px) {    
     .container{
         padding: 0;

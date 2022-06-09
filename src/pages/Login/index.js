@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate  } from "react-router-dom";
 import { FaUser, FaKey } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,15 +8,24 @@ import './styles.css';
 
 import api from '../../services/api';
 
-const Login = () => {
+const Login = (props) => {
     const [ cpf, setCpf ] = useState('');
     const [ code, setCode ] = useState('');
+    const [ password, setPassword ] = useState('');
+    const [ password2, setPassword2 ] = useState('');
     const [ beneficiary, setBeneficiary ] = useState(null);
-    const [ stage, setStage ] = useState(1);
-    const [ channel, setChannel ] = useState('email');
+    const [ channel, setChannel ] = useState();
+
+    const { stage } = props;
+
+    const navigate = useNavigate();   
 
     const notify = (message) => toast.success(message);
     const notifyWarn = (message) => toast.warn(message);
+
+    useEffect(()=>{
+        if(! beneficiary) navigate('/');
+    }, [beneficiary]);
 
     useEffect(()=>{
         if(cpf && cpf.length >= 11){
@@ -24,6 +34,9 @@ const Login = () => {
                 .get(`/beneficiaries/search/${cpf}`)
                 .then((response) => {            
                     setBeneficiary(response.data);
+                    if(response.data.is_first_access) navigate('/choose-channel');
+                    else navigate('/login');
+                    
                 })
                 .catch((err) => {
                     notifyWarn(err.response.data.message);
@@ -34,7 +47,33 @@ const Login = () => {
         }        
     }, [cpf]);
 
-    
+    async function login(){
+        const data = { cpf, password }
+
+        await api
+        .post('/login', data)
+        .then((response) => {
+            console.log(response.data);
+            //navigate('/home');
+        })
+        .catch((err) => {
+            notifyWarn(err.response.data.message);
+        });
+    }
+
+    async function confirmUserAccount(){
+        const data = { code }
+
+        await api
+        .post(`/confirm-user-account/${beneficiary.id}`, data)
+        .then((response) => {
+            notify(response.data.message);
+            navigate('/login');
+        })
+        .catch((err) => {
+            notifyWarn(err.response.data.message);
+        });
+    }
 
     async function sendConfirmAccountCode(){
         const data = { cpf, channel }
@@ -43,32 +82,36 @@ const Login = () => {
         .post("/send-user-account-confirmation", data)
         .then((response) => {
             notify(response.data.message);
-            setStage(2);
+            navigate('/confirm-account');
         })
         .catch((err) => {
             notifyWarn(err.response.data.message);
-            setStage(1);
         });
     }
 
     async function handleSubmit(event){
         event.preventDefault();
         
-        if(stage === 1){
+        if(stage === "1"){
             if(cpf.length < 11){
                 notifyWarn("Verifique o CPF");
                 return
             }
-
-            if(beneficiary && beneficiary.is_first_access) await sendConfirmAccountCode();
         }
-        else if(stage === 2){
+        else if(stage === "2"){
+            if(beneficiary && beneficiary.is_first_access) await sendConfirmAccountCode();
+            else navigate('/login');
+        }
+        else if(stage === "3"){
             if(code.length < 6){
                 notifyWarn("Digite um código de verificação válido");
                 return
             }
 
-            console.log(code);
+            confirmUserAccount()
+        }
+        else if(stage === "4"){
+            login();
         }
     }
     
@@ -82,12 +125,24 @@ const Login = () => {
         if(value.length <= 11) setCpf(onlyNumbers(value));
     }
 
+    function handleChannel(e){
+        const { value } = e.target;
+        setChannel(value);
+    }
+
     function handleCode(e){
         const { value } = e.target;
 
         setCode(value);
     }
     
+    function handlePassword(e){
+        const { value, name } = e.target;
+
+        if(name === "password") setPassword(value);
+        if(name === "password2") setPassword2(value);
+    }
+
     return (
         <>
         <ToastContainer /> 
@@ -101,25 +156,47 @@ const Login = () => {
                         <hr />
                         <form>
                             <div className="input-group form-group">
-                                {stage === 1 ?                                 
-                                <>
-                                    <div className="input-group-prepend">
-                                        <span className="input-group-text"><FaUser /></span>
-                                    </div>
-                                    <input type="text" className="form-control input-group-text" value={cpf || ''} onChange={handleCPF} placeholder="Digite seu CPF" />
-                                </>
-                                :
-                                <>
-                                    <div className="input-group-prepend">
-                                        <span className="input-group-text"><FaKey /></span>
-                                    </div>
-                                    <input type="text" className="form-control input-group-text" value={code || ''} onChange={handleCode} placeholder="Digite o código de verificação" />
-                                </>
+                                {stage === "1" &&                                 
+                                    <>
+                                        <div className="input-group-prepend">
+                                            <span className="input-group-text"><FaUser /></span>
+                                        </div>
+                                        <input type="text" className="form-control input-group-text" value={cpf || ''} onChange={handleCPF} placeholder="Digite seu CPF" />
+                                    </>
                                 }
-                                                            
+                                {stage === "2" &&                                 
+                                    <>
+                                        <label className="title">Escolha o canal:</label>
+                                        <div className="btn-group" role="group" aria-label="Basic outlined example">
+                                            <button type="button" className="btn btn-outline-info" value="email" onClick={handleChannel}>Email</button>                                            
+                                            <button type="button" className="btn btn-outline-info" value="sms" onClick={handleChannel}>SMS</button>
+                                        </div>
+                                    </>
+                                }   
+                                {stage === "3" &&                                 
+                                    <>
+                                        <div className="input-group-prepend">
+                                            <span className="input-group-text"><FaKey /></span>
+                                        </div>
+                                        <input type="text" className="form-control input-group-text" value={code || ''} onChange={handleCode} placeholder="Digite o código de verificação" />
+                                    </>
+                                }   
+                                {stage === "4" &&                                 
+                                    <>
+                                        <div className="input-group-prepend">
+                                            <span className="input-group-text"><FaKey /></span>
+                                        </div>
+                                        <input type="password" className="form-control input-group-text" name="password" value={password || ''} onChange={handlePassword} placeholder="Digite a senha" />
+                                    </>
+                                }                                                     
                             </div>                        
                             <div className="button-group">
-                                <button className="btn btn-dark" onClick={handleSubmit}>Buscar</button>
+                                <button className="btn btn-dark" onClick={handleSubmit}>
+                                    { stage === "1" && "Buscar"}
+                                    { stage === "2" && "Enviar código"}
+                                    { stage === "3" && "Verificar"}
+                                    { stage === "4" && "Entrar"}
+                                </button>
                             </div>
                         </form>
                     </div>           
