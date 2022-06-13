@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './styles.css';
 
 import api from '../../services/api';
-import { login } from "../../services/auth";
+import { login, setRules } from "../../services/auth";
 
 const Login = (props) => {
     const [ cpf, setCpf ] = useState('');
@@ -52,8 +52,9 @@ const Login = (props) => {
 
         await api
         .post('/login', data)
-        .then((response) => {
-            const { token } = response.data;
+        .then((response) => {            
+            const { token, rules } = response.data;
+            setRules(rules);
             login(token);
             navigate('/home');
         })

@@ -32,8 +32,8 @@ const Menu = (props) => {
                     Beneficiários
                     </label>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <label className="dropdown-item" >Listar</label>
-                        <label className="dropdown-item" >Contestações</label>
+                        <label className="dropdown-item" onClick={() => navigate('/beneficiaries')}>Listar</label>
+                        <label className="dropdown-item" onClick={() => navigate('/contestations/1')}>Contestações</label>
                     </div>
                 </li>
 
@@ -42,7 +42,7 @@ const Menu = (props) => {
                 </li>
                 
                 <li className="nav-item">
-                    <label className="nav-link" >Contestações</label>
+                    <label className="nav-link" onClick={() => navigate('/contestations')}>Contestações</label>
                 </li>
                 </ul>                
             </div>

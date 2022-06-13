@@ -20,7 +20,6 @@ const Dashboard = (props) => {
             .get(`/reports/4`)
             .then((response) => {            
                 setDashboard(response.data);
-                console.log(response.data);
             })
             .catch((err) => {
                 notifyWarn(err.response.data.message);
