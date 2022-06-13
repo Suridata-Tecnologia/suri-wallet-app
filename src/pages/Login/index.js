@@ -7,12 +7,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import './styles.css';
 
 import api from '../../services/api';
+import { login } from "../../services/auth";
 
 const Login = (props) => {
     const [ cpf, setCpf ] = useState('');
     const [ code, setCode ] = useState('');
     const [ password, setPassword ] = useState('');
-    const [ password2, setPassword2 ] = useState('');
     const [ beneficiary, setBeneficiary ] = useState(null);
     const [ channel, setChannel ] = useState();
 
@@ -47,14 +47,15 @@ const Login = (props) => {
         }        
     }, [cpf]);
 
-    async function login(){
+    async function autheticate(){
         const data = { cpf, password }
 
         await api
         .post('/login', data)
         .then((response) => {
-            console.log(response.data);
-            //navigate('/home');
+            const { token } = response.data;
+            login(token);
+            navigate('/home');
         })
         .catch((err) => {
             notifyWarn(err.response.data.message);
@@ -111,7 +112,7 @@ const Login = (props) => {
             confirmUserAccount()
         }
         else if(stage === "4"){
-            login();
+            autheticate();
         }
     }
     
@@ -139,14 +140,13 @@ const Login = (props) => {
     function handlePassword(e){
         const { value, name } = e.target;
 
-        if(name === "password") setPassword(value);
-        if(name === "password2") setPassword2(value);
+        setPassword(value);
     }
 
     return (
         <>
         <ToastContainer /> 
-        <div className="container">             
+        <div className="auth-container">             
             <div className="d-flex justify-content-center h-100">
                 <div className="card">
                     <div className="card-body">

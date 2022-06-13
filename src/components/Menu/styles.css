@@ -1,0 +1,14 @@
+.logo{
+    background-color: #f1f1f1;
+    margin: 10px 15px;
+}
+
+@media screen and (max-width: 900px) {    
+    .logo{
+        margin: 3px 5px;
+    }
+
+    .logo img{
+        width: 50px;
+    }
+}

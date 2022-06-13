@@ -14,9 +14,6 @@ body{
 html, body, #root{
     height: 100%;
     width: 100%;
-    background-image: url('https://portal.suridata.com.br/img/Imagem%20Potal%20Suri%20-%20menor.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
     font-family: 'Numans', sans-serif;
 }
 
