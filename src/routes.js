@@ -30,6 +30,7 @@ const Routes = props => (
           <Route element={<IsAdmin />}>
             <Route element={<Beneficiaries />} path="/beneficiaries" />
             <Route element={<Contestations />} path="/contestations" />
+            <Route element={<Contestations />} path="/contestations/:user_id" />
           </Route>          
           <Route element={<Dashboard />} path="/dashboard" />
         </Route>

@@ -1,8 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useParams } from 'react-router-dom';
 import { useNavigate  } from "react-router-dom";
-import { FaUser, FaKey } from 'react-icons/fa';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import './styles.css';
@@ -10,9 +9,10 @@ import './styles.css';
 const Menu = (props) => {
     const navigate = useNavigate(); 
 
+    const user_id = localStorage.getItem('uuid');
+
     return (
         <>
-        <ToastContainer /> 
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="navbar-brand logo" >
                 <img src="https://portal.suridata.com.br/img/storage/suridata_logo_v4.png" width="55" />
@@ -33,7 +33,7 @@ const Menu = (props) => {
                     </label>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                         <label className="dropdown-item" onClick={() => navigate('/beneficiaries')}>Listar</label>
-                        <label className="dropdown-item" onClick={() => navigate('/contestations/1')}>Contestações</label>
+                        <label className="dropdown-item" onClick={() => navigate(`/contestations/${user_id}`)}>Contestações</label>
                     </div>
                 </li>
 

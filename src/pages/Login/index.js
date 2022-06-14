@@ -14,7 +14,8 @@ const Login = (props) => {
     const [ code, setCode ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ beneficiary, setBeneficiary ] = useState(null);
-    const [ channel, setChannel ] = useState();
+    const [ channel, setChannel ] = useState('');
+    const [ contact, setContact ] = useState('');
 
     const { stage } = props;
 
@@ -54,9 +55,12 @@ const Login = (props) => {
         .post('/login', data)
         .then((response) => {            
             const { token, rules } = response.data;
-            setRules(rules);
+            
             login(token);
-            navigate('/home');
+            setRules(rules);
+            
+            localStorage.setItem('uuid', beneficiary.id);
+            navigate(`/home`);
         })
         .catch((err) => {
             notifyWarn(err.response.data.message);
@@ -78,7 +82,7 @@ const Login = (props) => {
     }
 
     async function sendConfirmAccountCode(){
-        const data = { cpf, channel }
+        const data = { cpf, channel, contact }
 
         await api
         .post("/send-user-account-confirmation", data)
@@ -127,6 +131,13 @@ const Login = (props) => {
         if(value.length <= 11) setCpf(onlyNumbers(value));
     }
 
+    function handleContact(e){
+        const { value } = e.target;
+
+        setContact(value);
+    }
+    
+
     function handleChannel(e){
         const { value } = e.target;
         setChannel(value);
@@ -172,6 +183,7 @@ const Login = (props) => {
                                             <button type="button" className="btn btn-outline-info" value="email" onClick={handleChannel}>Email</button>                                            
                                             <button type="button" className="btn btn-outline-info" value="sms" onClick={handleChannel}>SMS</button>
                                         </div>
+                                        {channel !== '' && <input type="text" className="form-control input-group-text" style={{ marginTop: '10px' }} value={contact} onChange={handleContact} placeholder={`${channel === 'sms' ? '+5511999999999' : 'email@email.com.br'}`} />}
                                     </>
                                 }   
                                 {stage === "3" &&                                 

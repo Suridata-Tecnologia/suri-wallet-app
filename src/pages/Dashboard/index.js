@@ -10,14 +10,22 @@ import Menu from '../../components/Menu';
 
 const Dashboard = (props) => {
     const [ dashboard, setDashboard ] = useState('');
+    const [ width, setWidth ] = useState();
+    const [ height, setHeight ] = useState();
 
     const notify = (message) => toast.success(message);
     const notifyWarn = (message) => toast.warn(message);
 
     useEffect(()=>{
+        function getResolution() {            
+            return window.screen.width * window.devicePixelRatio
+        }
+
         async function findDashboard(){
+            const data =  { resolution: getResolution() };
+
             await api
-            .get(`/reports/4`)
+            .post(`/reports/${localStorage.getItem('uuid')}`, data)
             .then((response) => {            
                 setDashboard(response.data);
             })
@@ -26,7 +34,7 @@ const Dashboard = (props) => {
             });
         }
 
-        findDashboard();      
+        findDashboard();    
     }, []);
 
     return (

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -9,24 +10,29 @@ import api from '../../services/api';
 import Menu from '../../components/Menu';
 
 const Contestations = (props) => {
-    const [ dashboard, setDashboard ] = useState('');
+    const [ contestations, setContestations ] = useState([]);
 
-    const notify = (message) => toast.success(message);
+    const { user_id } = useParams();
+
     const notifyWarn = (message) => toast.warn(message);
 
     useEffect(()=>{
-        async function findDashboard(){
+        async function findAllContestations(){
+            var endpoint = '';
+            if(user_id){ endpoint = `/contestations/${user_id}` }
+            else{ endpoint = `/contestations` }
+
             await api
-            .get(`/reports/4`)
+            .get(endpoint)
             .then((response) => {            
-                setDashboard(response.data);
+                setContestations(response.data);
             })
             .catch((err) => {
                 notifyWarn(err.response.data.message);
             });
         }
 
-        findDashboard();      
+        findAllContestations();      
     }, []);
 
     return (
@@ -38,30 +44,18 @@ const Contestations = (props) => {
                 <thead class="thead-dark">
                     <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Código da utilização</th>
+                    <th scope="col">Descrição</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    </tr>
-                    <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    </tr>
-                    <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                    </tr>
+                    {contestations.map(contestation => (
+                        <tr>
+                            <th scope="row">{contestation.id}</th>
+                            <td>{contestation.utilizacao_code}</td>
+                            <td>{contestation.description && contestation.description.substring(0, 20)}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>               
         </div>
