@@ -1,0 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+.buttons{
+    display: flex;
+    gap: 5px;
+}

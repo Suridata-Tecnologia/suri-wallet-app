@@ -5,6 +5,7 @@ import { isAutheticate, isAdmin } from "./services/auth";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import ContestationsForm from "./pages/ContestationsForm";
 import Dashboard from "./pages/Dashboard";
 import Beneficiaries from "./pages/Beneficiaries";
 import Contestations from "./pages/Contestations";
@@ -29,6 +30,7 @@ const Routes = props => (
         <Route element={<PrivateRoute />}>
           <Route element={<Home />} path="/home" />
           <Route element={<Profile />} path="/profile" />
+          <Route element={<ContestationsForm />} path="/contestations/form/:uti_id" />
           <Route element={<IsAdmin />}>
             <Route element={<Beneficiaries />} path="/beneficiaries" />
             <Route element={<Contestations />} path="/contestations" />            
