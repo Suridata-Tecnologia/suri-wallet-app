@@ -44,7 +44,9 @@ const ContestationsForm = (props) => {
         const data = {
             utilizacao_code, 
             description, 
-            user_id: currentUser.id
+            user_id: currentUser.id,
+            beneficiary: currentUser.name,
+            cpf: currentUser.cpf,
         };
 
         const hasContestation = await api.get(`/contestations/search/${utilizacao_code}`)
