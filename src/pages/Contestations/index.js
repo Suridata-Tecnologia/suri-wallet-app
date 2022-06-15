@@ -40,8 +40,8 @@ const Contestations = (props) => {
         <ToastContainer /> 
         <Menu /> 
         <div className="custom-container">                      
-            <table class="table">
-                <thead class="thead-dark">
+            <table className="table">
+                <thead className="thead-dark">
                     <tr>
                     <th scope="col">#</th>
                     <th scope="col">Código da utilização</th>
@@ -50,7 +50,7 @@ const Contestations = (props) => {
                 </thead>
                 <tbody>
                     {contestations.map(contestation => (
-                        <tr>
+                        <tr key={contestation.id}>
                             <th scope="row">{contestation.id}</th>
                             <td>{contestation.utilizacao_code}</td>
                             <td>{contestation.description && contestation.description.substring(0, 20)}</td>

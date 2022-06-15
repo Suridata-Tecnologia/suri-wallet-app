@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate  } from "react-router-dom";
+
 import 'react-toastify/dist/ReactToastify.css';
 
 import './styles.css';
@@ -11,6 +13,7 @@ import Menu from '../../components/Menu';
 const Beneficiaries = (props) => {
     const [ beneficiaries, setBeneficiaries ] = useState([]);
 
+    const navigate = useNavigate(); 
     const notifyWarn = (message) => toast.warn(message);
 
     useEffect(()=>{
@@ -40,6 +43,7 @@ const Beneficiaries = (props) => {
                     <th scope="col">Nome</th>
                     <th scope="col">E-mail</th>
                     <th scope="col">Celular</th>
+                    <th scope="col">Ação</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,6 +53,7 @@ const Beneficiaries = (props) => {
                             <td>{beneficiary.name}</td>
                             <td>{beneficiary.email}</td>
                             <td>{beneficiary.phone}</td>
+                            <td><button className="btn btn-dark" onClick={() => navigate(`/contestations/${beneficiary.id}`)}>Con</button><button className="btn btn-primary" onClick={() => navigate(`/dashboard/${beneficiary.id}`)}>Uti</button></td>
                         </tr> 
                     ))}                                       
                 </tbody>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -13,6 +14,8 @@ const Dashboard = (props) => {
     const [ width, setWidth ] = useState();
     const [ height, setHeight ] = useState();
 
+    const { user_id } = useParams();
+
     const notify = (message) => toast.success(message);
     const notifyWarn = (message) => toast.warn(message);
 
@@ -25,7 +28,7 @@ const Dashboard = (props) => {
             const data =  { resolution: getResolution() };
 
             await api
-            .post(`/reports/${localStorage.getItem('uuid')}`, data)
+            .post(`/reports/${user_id}`, data)
             .then((response) => {            
                 setDashboard(response.data);
             })

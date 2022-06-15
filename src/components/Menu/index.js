@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from "react";
-import { useParams } from 'react-router-dom';
 import { useNavigate  } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -27,23 +26,34 @@ const Menu = (props) => {
                     <label className="nav-link" onClick={() => navigate('/home')}>Inicio</label>
                 </li>
 
-                <li className="nav-item dropdown">
-                    <label className="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Beneficiários
-                    </label>
-                    <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <label className="dropdown-item" onClick={() => navigate('/beneficiaries')}>Listar</label>
-                        <label className="dropdown-item" onClick={() => navigate(`/contestations/${user_id}`)}>Contestações</label>
-                    </div>
+                <li className="nav-item active">
+                    <label className="nav-link" onClick={() => navigate('/profile')}>Perfil</label>
                 </li>
 
-                <li className="nav-item">
-                    <label className="nav-link" onClick={() => navigate('/dashboard')}>Utilização</label>
-                </li>
-                
-                <li className="nav-item">
-                    <label className="nav-link" onClick={() => navigate('/contestations')}>Contestações</label>
-                </li>
+                {localStorage.getItem('rules') === 'corretor' && 
+                    <li className="nav-item dropdown">
+                        <label className="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Beneficiários
+                        </label>
+                        <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <label className="dropdown-item" onClick={() => navigate('/beneficiaries')}>Listar</label>
+                            <label className="dropdown-item" onClick={() => navigate(`/contestations`)}>Contestações</label>
+                        </div>
+                    </li>
+                }
+
+                {localStorage.getItem('rules') === 'titular' || localStorage.getItem('rules') === 'beneficiario' ? 
+                    <>
+                        <li className="nav-item">
+                            <label className="nav-link" onClick={() => navigate(`/dashboard/${user_id}`)}>Utilização</label>
+                        </li>
+                        
+                        <li className="nav-item">
+                            <label className="nav-link" onClick={() => navigate(`/contestations/${user_id}`)}>Contestações</label>
+                        </li>
+                    </>
+                    : ''
+                }
                 </ul>                
             </div>
         </nav>
