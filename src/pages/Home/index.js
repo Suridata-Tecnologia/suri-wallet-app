@@ -16,7 +16,7 @@ const Login = (props) => {
         <ToastContainer /> 
         <Menu /> 
         <div className="custom-container">                      
-            teste
+            
         </div>
         </>
     );

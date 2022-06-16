@@ -10,13 +10,11 @@ import api from '../../services/api';
 import Menu from '../../components/Menu';
 
 const Dashboard = (props) => {
+    const [ currentUser, setCurrentUser ] = useState();
     const [ dashboard, setDashboard ] = useState('');
-    const [ width, setWidth ] = useState();
-    const [ height, setHeight ] = useState();
 
     const { user_id } = useParams();
 
-    const notify = (message) => toast.success(message);
     const notifyWarn = (message) => toast.warn(message);
 
     useEffect(()=>{
@@ -37,7 +35,20 @@ const Dashboard = (props) => {
             });
         }
 
-        findDashboard();    
+        findDashboard();   
+        
+        async function handleBeneficiaries(){
+            await api
+            .get(`/beneficiaries/${localStorage.getItem('uuid')}`)
+            .then((response) => {            
+                setCurrentUser(response.data);
+            })
+            .catch((err) => {
+                notifyWarn(err.response.data.message);
+            });
+        }
+
+        handleBeneficiaries();  
     }, []);
 
     return (
@@ -45,7 +56,7 @@ const Dashboard = (props) => {
         <ToastContainer /> 
         <Menu /> 
         <div className="custom-container">                      
-            <iframe src={`https://datastudio.google.com/embed/reporting/${dashboard.first_code}/page/${dashboard.second_code}`} title={dashboard.description} width="100vw" height="100vh"></iframe>
+            <iframe src={`https://datastudio.google.com/embed/reporting/${dashboard.first_code}/page/${dashboard.second_code}?params=%7B"EMPRESA":"${currentUser.company}","CPF":"${currentUser.cpf}"%7D`} title={dashboard.description} width="100vw" height="100vh"></iframe>
         </div>
         </>
     );

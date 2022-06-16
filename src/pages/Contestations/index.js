@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaEdit, FaChartBar, FaSearch, FaHeadset } from 'react-icons/fa';
+import { FaEdit, FaSearch } from 'react-icons/fa';
 import { useParams } from "react-router-dom";
 import { useNavigate  } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
