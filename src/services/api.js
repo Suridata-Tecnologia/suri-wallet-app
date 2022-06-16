@@ -6,7 +6,7 @@ if(rules !== ''){
   rules = rules.split(',');
 }
 const api = axios.create({
-  baseURL: 'https://suri-wallet-api-k7z65.ondigitalocean.app/',
+  baseURL: 'https://suri-wallet-api-k7z65.ondigitalocean.app',
   headers: {'Authorization': `Bearer ${token}`, 'access': rules}
 });
 
