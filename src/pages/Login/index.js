@@ -69,7 +69,7 @@ const Login = (props) => {
             navigate(`/`);
         });
 
-        await timeout(1000);
+        await timeout(2000);
         navigate(`/home`);   
     }
 
