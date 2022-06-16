@@ -27,7 +27,7 @@ const Menu = (props) => {
                 </li>
 
                 <li className="nav-item active">
-                    <label className="nav-link" onClick={() => navigate('/profile')}>Perfil</label>
+                    <label className="nav-link" onClick={() => navigate(`/profile/${localStorage.getItem('uuid')}`)}>Perfil</label>
                 </li>
 
                 {localStorage.getItem('rules') === 'corretor' && 

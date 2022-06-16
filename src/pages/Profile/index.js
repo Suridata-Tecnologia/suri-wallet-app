@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { useNavigate  } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,13 +17,15 @@ const Profile = (props) => {
 
     const navigate = useNavigate(); 
 
+    const { user_id } = useParams();
+
     const notify = (message) => toast.success(message);
     const notifyWarn = (message) => toast.warn(message);
 
     useEffect(()=>{
         async function handleBeneficiaries(){
             await api
-            .get(`/beneficiaries/${localStorage.getItem('uuid')}`)
+            .get(`/beneficiaries/${user_id}`)
             .then((response) => {            
                 setCurrentUser(response.data);
             })

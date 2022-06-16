@@ -29,7 +29,7 @@ const Routes = props => (
         <Route path="/login" element={<Login stage="4" />}></Route>
         <Route element={<PrivateRoute />}>
           <Route element={<Home />} path="/home" />
-          <Route element={<Profile />} path="/profile" />
+          <Route element={<Profile />} path="/profile/:user_id" />
           <Route element={<ContestationsForm />} path="/contestations/form/:uti_id" />
           <Route element={<IsAdmin />}>
             <Route element={<Beneficiaries />} path="/beneficiaries" />
