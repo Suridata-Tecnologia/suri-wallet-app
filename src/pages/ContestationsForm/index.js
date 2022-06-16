@@ -12,7 +12,8 @@ import Menu from '../../components/Menu';
 
 const ContestationsForm = (props) => {
     const [ currentUser, setCurrentUser ] = useState();
-    const [ description, setDescription ] = useState();
+    const [ currentContestation, setCurrentContestation ] = useState();
+    const [op, setOp] = useState(false);
     
     const { uti_id } = useParams();
 
@@ -37,38 +38,67 @@ const ContestationsForm = (props) => {
         }
 
         handleBeneficiaries();      
+
+        async function handleContestations(){
+            await api
+            .get(`/contestations/search/${utilizacao_code}`)
+            .then((response) => {        
+                if(response.data.length > 0){ setOp(true) } 
+                setCurrentContestation(response.data[0]);
+            })
+            .catch((err) => {
+                notifyWarn(err.response.data.message);
+            });
+        }
+
+        handleContestations();  
+
     }, []);
 
     async function submitForm(e){
         e.preventDefault();
         const data = {
             utilizacao_code, 
-            description, 
+            description: currentContestation.description, 
             user_id: currentUser.id,
             beneficiary: currentUser.name,
             cpf: currentUser.cpf,
         };
 
-        const hasContestation = await api.get(`/contestations/search/${utilizacao_code}`)
-        if(hasContestation.data.length > 0){
-            notifyWarn('Contestação já cadastrada!');
-            return;
-        }
+        if(!op){
+            const hasContestation = await api.get(`/contestations/search/${utilizacao_code}`)
+            if(hasContestation.data.length > 0){
+                notifyWarn('Contestação já cadastrada!');
+                return;
+            }
 
-        await api.post(`/contestations`, data)
-        .then((response) => {            
-            notify('Contestação cadastrada!');
-            //navigate('/contestations');
-        })
-        .catch((err) => {
-            notifyWarn(err.response.data.message);
-        });
+            await api.post(`/contestations`, data)
+            .then((response) => {            
+                notify('Contestação cadastrada!');
+                navigate('/contestations');
+            })
+            .catch((err) => {
+                notifyWarn(err.response.data.message);
+            });
+        }
+        else{
+            console.log(currentContestation);
+            await api.put(`/contestations/${currentContestation.id}`, data)
+            .then((response) => {            
+                notify('Contestação alterada!');
+            })
+            .catch((err) => {
+                notifyWarn(err.response.data.message);
+            });
+        }
+        
     }
 
     function handleDescription(e){
         const { value } = e.target;
-
-        setDescription(value);
+        let list = { ...currentContestation };
+        list.description = value;
+        setCurrentContestation(list);
     }
 
     return (
@@ -94,7 +124,7 @@ const ContestationsForm = (props) => {
                     </div>
                     <div className="mb-3 row">
                         <label className="form-label col-form-label col-sm-2">Descrição</label>
-                        <div className="col-sm-10"><textarea placeholder="Descrição" className="form-control" onChange={handleDescription}>{description}</textarea></div>
+                        <div className="col-sm-10"><textarea placeholder="Descrição" className="form-control" value={currentContestation && currentContestation.description} onChange={handleDescription}>{currentContestation && currentContestation.description}</textarea></div>
                     </div>
                     <div role="toolbar" className="mb-3 row">
                         <div className="buttons">

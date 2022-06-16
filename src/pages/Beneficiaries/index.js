@@ -53,17 +53,17 @@ const Beneficiaries = (props) => {
         <>
         <ToastContainer /> 
         <Menu /> 
-        <div class="container">
+        <div className="container">
             <br />
             <h1>Lista de beneficiários</h1>
             <hr />
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Buscar por CPF" onChange={handleCpf} value={cpf} aria-label="Buscar por CPF" aria-describedby="Buscar por CPF" />
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="button" onClick={handleSearch}><FaSearch />Buscar</button>
+            <div className="input-group mb-3">
+                <input type="text" className="form-control" placeholder="Buscar por CPF" onChange={handleCpf} value={cpf || ''} aria-label="Buscar por CPF" aria-describedby="Buscar por CPF" />
+                <div className="input-group-append">
+                    <button className="btn btn-primary" type="button" onClick={handleSearch}><FaSearch />Buscar</button>
                 </div>
             </div>
-            <table class="table table-striped table-bordered table-hover">
+            <table className="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
                         <th>CPF</th>
@@ -77,11 +77,11 @@ const Beneficiaries = (props) => {
                         <th scope="row">{beneficiary.cpf}</th>
                         <td>{beneficiary.name}</td>
                         <td>
-                            <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="with button groups">
-                                <div class="btn-group" role="group" aria-label="First group">
-                                    <button type="button" class="btn btn-dark" onClick={() => navigate(`/profile/${beneficiary.id}`)} title="Perfil"><FaEdit /></button>
-                                    <button type="button" class="btn btn-primary" onClick={() => navigate(`/dashboard/${beneficiary.id}`)} title="Dashboard"><FaChartBar /></button>
-                                    <button type="button" class="btn btn-secondary" onClick={() => navigate(`/contestations/${beneficiary.id}`)} title="Contestação"><FaHeadset /></button>
+                            <div className="btn-toolbar justify-content-between" role="toolbar" aria-label="with button groups">
+                                <div className="btn-group" role="group" aria-label="First group">
+                                    <button type="button" className="btn btn-dark" onClick={() => navigate(`/profile/${beneficiary.id}`)} title="Perfil"><FaEdit /></button>
+                                    <button type="button" className="btn btn-primary" onClick={() => navigate(`/dashboard/${beneficiary.id}`)} title="Dashboard"><FaChartBar /></button>
+                                    <button type="button" className="btn btn-secondary" onClick={() => navigate(`/contestations/${beneficiary.id}`)} title="Contestação"><FaHeadset /></button>
                                 </div>
                             </div>
                         </td>
@@ -90,9 +90,9 @@ const Beneficiaries = (props) => {
                 </tbody>
             </table>
             <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item"><input type="button" className="page-link" value="Voltar" onClick={ () => page <= 0 ? 1 : setPage(page - 1) } /></li>
-                    <li class="page-item"><input type="button" className="page-link" value="Avançar" onClick={ () => setPage(page + 1)  } /></li>
+                <ul className="pagination">
+                    <li className="page-item"><input type="button" className="page-link" value="Voltar" onClick={ () => page <= 0 ? 1 : setPage(page - 1) } /></li>
+                    <li className="page-item"><input type="button" className="page-link" value="Avançar" onClick={ () => setPage(page + 1)  } /></li>
                 </ul>
             </nav>
             </div>
