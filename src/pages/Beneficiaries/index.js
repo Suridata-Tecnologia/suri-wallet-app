@@ -13,6 +13,8 @@ import Menu from '../../components/Menu';
 
 const Beneficiaries = (props) => {
     const [ beneficiaries, setBeneficiaries ] = useState([]);
+    const [ cpf, setCpf ] = useState();
+
     const [ page, setPage ] = useState(1);
 
     const navigate = useNavigate(); 
@@ -32,6 +34,21 @@ const Beneficiaries = (props) => {
         handleBeneficiaries();      
     }, [page]);
 
+    function handleCpf(e){
+        const { value } = e.target;
+
+        setCpf(value);
+    }
+
+    async function handleSearch(){
+        const response = await api.get(`/beneficiaries/search/${cpf}`)
+        if(!response){
+            notifyWarn("Falhar ao buscar beneficiário");
+            return;
+        }
+        setBeneficiaries([response.data]);        
+    }
+
     return (
         <>
         <ToastContainer /> 
@@ -41,9 +58,9 @@ const Beneficiaries = (props) => {
             <h1>Lista de beneficiários</h1>
             <hr />
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Buscar por CPF" aria-label="Buscar por CPF" aria-describedby="Buscar por CPF" />
+                <input type="text" class="form-control" placeholder="Buscar por CPF" onChange={handleCpf} value={cpf} aria-label="Buscar por CPF" aria-describedby="Buscar por CPF" />
                 <div class="input-group-append">
-                    <button class="btn btn-primary" type="button"><FaSearch />Buscar</button>
+                    <button class="btn btn-primary" type="button" onClick={handleSearch}><FaSearch />Buscar</button>
                 </div>
             </div>
             <table class="table table-striped table-bordered table-hover">
@@ -60,7 +77,7 @@ const Beneficiaries = (props) => {
                         <th scope="row">{beneficiary.cpf}</th>
                         <td>{beneficiary.name}</td>
                         <td>
-                            <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+                            <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="with button groups">
                                 <div class="btn-group" role="group" aria-label="First group">
                                     <button type="button" class="btn btn-dark" onClick={() => navigate(`/profile/${beneficiary.id}`)} title="Perfil"><FaEdit /></button>
                                     <button type="button" class="btn btn-primary" onClick={() => navigate(`/dashboard/${beneficiary.id}`)} title="Dashboard"><FaChartBar /></button>
