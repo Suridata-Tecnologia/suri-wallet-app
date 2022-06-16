@@ -56,10 +56,10 @@ const Login = (props) => {
         .then((response) => {            
             const { token, rules } = response.data;
             
-            login(token);
-            setRules(rules);
-            
+            localStorage.setItem('token', String(token));
             localStorage.setItem('uuid', beneficiary.id);
+
+            setRules(rules);            
             navigate(`/home`);
         })
         .catch((err) => {
@@ -150,7 +150,7 @@ const Login = (props) => {
     }
     
     function handlePassword(e){
-        const { value, name } = e.target;
+        const { value } = e.target;
 
         setPassword(value);
     }
