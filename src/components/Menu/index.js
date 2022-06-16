@@ -3,6 +3,7 @@ import React from "react";
 import { useNavigate  } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 
+import { logout } from "../../services/auth";
 import './styles.css';
 
 const Menu = (props) => {
@@ -54,6 +55,9 @@ const Menu = (props) => {
                     </>
                     : ''
                 }
+                <li className="nav-item active">
+                    <label className="nav-link" onClick={() => { logout(); navigate('/') }}>Sair</label>
+                </li>
                 </ul>                
             </div>
         </nav>

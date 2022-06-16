@@ -48,6 +48,10 @@ const Login = (props) => {
         }        
     }, [cpf]);
 
+    function timeout(delay) {
+        return new Promise( res => setTimeout(res, delay) );
+    }
+
     async function autheticate(){
         const data = { cpf, password }
 
@@ -55,16 +59,18 @@ const Login = (props) => {
         .post('/login', data)
         .then((response) => {            
             const { token, rules } = response.data;
-            
-            localStorage.setItem('token', String(token));
-            localStorage.setItem('uuid', beneficiary.id);
+            login(token);
+            setRules(rules);
 
-            setRules(rules);            
-            navigate(`/home`);
+            localStorage.setItem('uuid', beneficiary.id);         
         })
         .catch((err) => {
             notifyWarn(err.response.data.message);
+            navigate(`/`);
         });
+
+        await timeout(1000);
+        navigate(`/home`);   
     }
 
     async function confirmUserAccount(){
@@ -117,7 +123,7 @@ const Login = (props) => {
             confirmUserAccount()
         }
         else if(stage === "4"){
-            autheticate();
+            await autheticate();
         }
     }
     

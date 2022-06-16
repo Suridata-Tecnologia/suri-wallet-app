@@ -6,9 +6,10 @@ export const setRules = (rules) => {
 export const isAdmin = () => {
   return localStorage.getItem("rules").split(",");
 };
-export const login = (token) => {
-  localStorage.setItem("token", String(token));
+export const login = token => {
+  localStorage.setItem("token", token);
 };
 export const logout = () => {
   localStorage.clear();
+
 };
