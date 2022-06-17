@@ -48,10 +48,6 @@ const Login = (props) => {
         }        
     }, [cpf]);
 
-    function timeout(delay) {
-        return new Promise( res => setTimeout(res, delay) );
-    }
-
     async function autheticate(){
         const data = { cpf, password }
 
@@ -68,9 +64,8 @@ const Login = (props) => {
             notifyWarn(err.response.data.message);
             navigate(`/`);
         });
-
-        await timeout(2000);
-        navigate(`/home`);   
+d
+        window.location.href = "/home";   
     }
 
     async function confirmUserAccount(){
