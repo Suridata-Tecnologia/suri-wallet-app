@@ -64,7 +64,7 @@ const Login = (props) => {
             notifyWarn(err.response.data.message);
             navigate(`/`);
         });
-d
+        
         window.location.href = "/home";   
     }
 
