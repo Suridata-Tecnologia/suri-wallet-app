@@ -124,11 +124,18 @@ const ContestationsForm = (props) => {
                     </div>
                     <div className="mb-3 row">
                         <label className="form-label col-form-label col-sm-2">Descrição</label>
-                        <div className="col-sm-10"><textarea placeholder="Descrição" className="form-control" value={currentContestation && currentContestation.description} onChange={handleDescription}>{currentContestation && currentContestation.description}</textarea></div>
+                        <div className="col-sm-10">
+                            {currentUser && currentUser.id === localStorage.getItem('uuid') ? 
+                            <textarea placeholder="Descrição" className="form-control" value={currentContestation && currentContestation.description} onChange={handleDescription}>{currentContestation && currentContestation.description}</textarea>
+                            : 
+                            <textarea placeholder="Descrição" className="form-control" readOnly value={currentContestation && currentContestation.description}>{currentContestation && currentContestation.description}</textarea>
+                            }
+                            
+                        </div>
                     </div>
                     <div role="toolbar" className="mb-3 row">
                         <div className="buttons">
-                            <button type="submit" className="btn btn-success">Salvar</button>
+                            {currentUser && currentUser.id === localStorage.getItem('uuid') ? <button type="submit" className="btn btn-success">Salvar</button> : ''}
                             <button type="button" className="btn btn-danger" style={{marginRight: '10px'}} onClick={ () => navigate(-1) }>Voltar</button>                        
                         </div>
                     </div>

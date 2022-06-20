@@ -80,7 +80,9 @@ const Beneficiaries = (props) => {
                             <div className="btn-toolbar justify-content-between" role="toolbar" aria-label="with button groups">
                                 <div className="btn-group" role="group" aria-label="First group">
                                     <button type="button" className="btn btn-dark" onClick={() => navigate(`/profile/${beneficiary.id}`)} title="Perfil"><FaEdit /></button>
-                                    <button type="button" className="btn btn-primary" onClick={() => navigate(`/dashboard/${beneficiary.id}`)} title="Dashboard"><FaChartBar /></button>
+                                    {beneficiary.id === localStorage.getItem('uuid') && 
+                                        <button type="button" className="btn btn-primary" onClick={() => navigate(`/dashboard/${beneficiary.id}`)} title="Dashboard"><FaChartBar /></button>
+                                    }                                    
                                     <button type="button" className="btn btn-secondary" onClick={() => navigate(`/contestations/${beneficiary.id}`)} title="Contestação"><FaHeadset /></button>
                                 </div>
                             </div>

@@ -56,8 +56,7 @@ const Dashboard = (props) => {
         <ToastContainer /> 
         <Menu /> 
         <div className="custom-container"> 
-        { currentUser ? <iframe src={`https://datastudio.google.com/embed/reporting/${dashboard.first_code}/page/${dashboard.second_code}?params=%7B"EMPRESA":"${currentUser.company}","CPF":"${currentUser.cpf}"%7D`} title={dashboard.description} width="100vw" height="100vh"></iframe>: 'Carregando...'}                     
-            
+        { currentUser && currentUser.id === localStorage.getItem('uuid')  ? <iframe src={`https://datastudio.google.com/embed/reporting/${dashboard.first_code}/page/${dashboard.second_code}?params=%7B"EMPRESA":"${currentUser.company}","CPF":"${currentUser.cpf}"%7D`} title={dashboard.description} width="100vw" height="100vh"></iframe>: 'Carregando...'}                      
         </div>
         </>
     );

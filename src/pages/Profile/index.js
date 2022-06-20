@@ -50,15 +50,6 @@ const Profile = (props) => {
         });
     }
 
-    function handleName(e){
-        const { value } = e.target;
-
-        let user = { ...currentUser }
-        user.name = value;
-
-        setCurrentUser(user);
-    }
-
     function handlePassword(e){
         const { value, name } = e.target;
 
@@ -89,10 +80,10 @@ const Profile = (props) => {
                 <form className="panel" onSubmit={submitForm}>
                     <div className="mb-3 row">
                         <label className="form-label col-form-label col-sm-2">Nome</label>
-                        <div className="col-sm-4"><input placeholder="Nome" name="name" type="text" className="form-control" onChange={handleName} value={currentUser.name} /></div>
-
-                        <input className="btn btn-link col-sm-6" data-toggle="modal" data-target="#passModal" defaultValue="Alterar Senha" />
-                        
+                        <div className="col-sm-4"><input placeholder="Nome" name="name" type="text" className="form-control" defaultValue={currentUser.cpf} readOnly /></div>
+                        {currentUser.id === localStorage.getItem('uuid') && 
+                            <input className="btn btn-link col-sm-6" data-toggle="modal" data-target="#passModal" defaultValue="Alterar Senha" />
+                        }
                     </div>
                     <div className="mb-3 row">
                     <label className="form-label col-form-label col-sm-2">CPF</label>
@@ -108,7 +99,7 @@ const Profile = (props) => {
                     </div>
                     <div role="toolbar" className="mb-3 row">
                         <div className="buttons">
-                            <button type="submit" className="btn btn-success">Salvar</button>
+                            {currentUser && currentUser.id === localStorage.getItem('uuid') ? <button type="submit" className="btn btn-success">Salvar</button> : ''}                            
                             <button type="button" className="btn btn-danger" style={{marginRight: '10px'}} onClick={ () => navigate(-1) }>Voltar</button>                        
                         </div>
                     </div>
