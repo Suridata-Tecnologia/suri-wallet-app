@@ -29,7 +29,7 @@ const Contestations = (props) => {
 
             await api
             .get(endpoint)
-            .then((response) => {            
+            .then((response) => {       
                 setContestations(response.data);
             })
             .catch((err) => {
@@ -87,7 +87,7 @@ const Contestations = (props) => {
                         <td>
                             <div className="btn-toolbar justify-content-between" role="toolbar" aria-label="with button groups">
                                 <div className="btn-group" role="group" aria-label="First group">
-                                    <button type="button" className="btn btn-dark" onClick={() => navigate(`/contestations/form/${contestation.utilizacao_code}_${contestation.cpf}`)} title="Contestação"><FaEdit /></button>
+                                    <button type="button" className="btn btn-dark" onClick={() => navigate(`/contestations/form/${contestation.utilizacao_code}_${contestation.cpf}?params=${JSON.stringify(contestation.params).replaceAll("\\", "")}`)} title="Contestação"><FaEdit /></button>
                                 </div>
                             </div>
                         </td>
