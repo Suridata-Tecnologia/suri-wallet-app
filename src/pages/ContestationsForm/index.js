@@ -192,7 +192,7 @@ const ContestationsForm = (props) => {
                     <div className="mb-3 row">
                         <label className="form-label col-form-label col-sm-2">Status</label>
                         <div className="col-sm-10">
-                            <select className="form-select" value={currentContestation && currentContestation.status} onChange={handleStatus} aria-label="Default select">
+                            <select className="form-select" value={currentContestation && currentContestation.status} disabled={localStorage.getItem('rules') === "corretor" ? false: true} onChange={handleStatus} aria-label="Default select">
                                 <option selected={currentContestation && (currentContestation.status === "Não iniciado") ? 'selected' : false}>Não iniciado</option>
                                 <option selected={currentContestation && (currentContestation.status === "Em andamento") ? 'selected' : false}>Em andamento</option>
                                 <option selected={currentContestation && (currentContestation.status === "Concluido") ? 'selected' : false}>Concluido</option>
@@ -203,14 +203,14 @@ const ContestationsForm = (props) => {
                         <div className="mb-3 row">
                             <label className="form-label col-form-label col-sm-2">Status - feedback</label>
                             <div className="col-sm-4">
-                                <select className="form-select" value={currentContestation.status_feedback} onChange={handleStatusFeedback} aria-label="Default select">
+                                <select className="form-select" value={currentContestation.status_feedback} disabled={localStorage.getItem('rules') === "corretor" ? false: true} onChange={handleStatusFeedback} aria-label="Default select">
                                     <option selected={currentContestation.status_feedback === "Aceito" ? 'selected' : false}>Aceito</option>
                                     <option selected={currentContestation.status_feedback === "Não aceito" ? 'selected' : false}>Não aceito</option>
                                 </select>
                             </div>
                     
                             <label className="form-label col-form-label col-sm-2">Feedback</label>
-                            <div className="col-sm-4"><textarea placeholder="Descrição" className="form-control" value={currentContestation && currentContestation.feedback} onChange={handleFeedback}>{currentContestation && currentContestation.feedback}</textarea></div>
+                            <div className="col-sm-4"><textarea placeholder="Descrição" className="form-control" readOnly={localStorage.getItem('rules') === "corretor" ? false: true} value={currentContestation && currentContestation.feedback} onChange={handleFeedback}>{currentContestation && currentContestation.feedback}</textarea></div>
                         </div> 
                         : ''
                     }                                 
@@ -232,7 +232,7 @@ const ContestationsForm = (props) => {
                     </div>
                     <div role="toolbar" className="mb-3 row">
                         <div className="buttons">
-                            {currentUser && currentUser.id === localStorage.getItem('uuid') ? <button type="submit" className="btn btn-success">Salvar</button> : ''}
+                            <button type="submit" className="btn btn-success">Salvar</button>
                             <button type="button" className="btn btn-danger" style={{marginRight: '10px'}} onClick={ () => navigate(-1) }>Voltar</button>                        
                         </div>
                     </div>

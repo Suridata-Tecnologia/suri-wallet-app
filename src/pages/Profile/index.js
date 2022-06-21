@@ -80,7 +80,7 @@ const Profile = (props) => {
                 <form className="panel" onSubmit={submitForm}>
                     <div className="mb-3 row">
                         <label className="form-label col-form-label col-sm-2">Nome</label>
-                        <div className="col-sm-4"><input placeholder="Nome" name="name" type="text" className="form-control" defaultValue={currentUser.cpf} readOnly /></div>
+                        <div className="col-sm-4"><input placeholder="Nome" name="name" type="text" className="form-control" defaultValue={currentUser.name} readOnly /></div>
                         {currentUser.id === localStorage.getItem('uuid') && 
                             <input className="btn btn-link col-sm-6" data-toggle="modal" data-target="#passModal" defaultValue="Alterar Senha" />
                         }

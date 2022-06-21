@@ -72,7 +72,7 @@ const Contestations = (props) => {
             <table className="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th>Beneficiário</th>
                         <th>Código da utilização</th>
                         <th>Descrição</th>
                         <th>Ações</th>
@@ -81,7 +81,7 @@ const Contestations = (props) => {
                 <tbody>
                 {contestations.map(contestation => (
                     <tr key={contestation.id}>
-                        <th scope="row">{contestation.id}</th>
+                        <th scope="row">{contestation.name}</th>
                         <th>{contestation.utilizacao_code}</th>
                         <td>{contestation.description && contestation.description.substring(0, 20)}</td>
                         <td>
