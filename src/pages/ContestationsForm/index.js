@@ -194,7 +194,7 @@ const ContestationsForm = (props) => {
                         <div className="col-sm-4"><input placeholder="Data_Atendto" name="Data_Atendto" type="text" className="form-control" readOnly defaultValue={params['Data_Atendto']} /></div>
                     </div> 
                     <div className="mb-3 row">
-                        <label className="form-label col-form-label col-sm-2">Descricao Operadora</label>
+                        <label className="form-label col-form-label col-sm-2">Descrição Operadora</label>
                         <div className="col-sm-4"><input placeholder="Descricao_Operadora" name="Descricao_Operadora" type="text" className="form-control" readOnly defaultValue={params['Descricao_Operadora']} /></div>
 
                         <label className="form-label col-form-label col-sm-2">Tipo Evento</label>
@@ -203,45 +203,26 @@ const ContestationsForm = (props) => {
                     <div className="mb-3 row">
                         <label className="form-label col-form-label col-sm-2">Status</label>
                         <div className="col-sm-10">
-                            {currentContestation && localStorage.getItem('rules') === "corretor" ? 
-                                <select className="form-select" value={currentContestation && currentContestation.contestation_status| ''} onChange={handleStatus} aria-label="Default select">
-                                    <option value={currentContestation && currentContestation.contestation_status | ''} selected={currentContestation && (currentContestation.status === "Não iniciado") ? 'selected' : false}>Não iniciado</option>
-                                    <option value={currentContestation && currentContestation.contestation_status | ''} selected={currentContestation && (currentContestation.status === "Em andamento") ? 'selected' : false}>Em andamento</option>
-                                    <option value={currentContestation && currentContestation.contestation_status | ''} selected={currentContestation && (currentContestation.status === "Concluido") ? 'selected' : false}>Concluido</option>
-                                </select>
-                                : 
-                                <select className="form-select" defaultValue={currentContestation && currentContestation.status| ''} disabled aria-label="Default select">
-                                    <option value={currentContestation && currentContestation.contestation_status | ''} selected={currentContestation && (currentContestation.status === "Não iniciado") ? 'selected' : false}>Não iniciado</option>
-                                    <option value={currentContestation && currentContestation.contestation_status | ''} selected={currentContestation && (currentContestation.status === "Em andamento") ? 'selected' : false}>Em andamento</option>
-                                    <option value={currentContestation && currentContestation.contestation_status | ''} selected={currentContestation && (currentContestation.status === "Concluido") ? 'selected' : false}>Concluido</option>
-                                </select>
-                            }                            
+                            <select className="form-select" value={currentContestation && currentContestation.status} disabled={localStorage.getItem('rules') === "corretor" ? false: true} onChange={handleStatus} aria-label="Default select">
+                                <option selected={currentContestation && (currentContestation.status === "Não iniciado") ? 'selected' : false}>Não iniciado</option>
+                                <option selected={currentContestation && (currentContestation.status === "Em andamento") ? 'selected' : false}>Em andamento</option>
+                                <option selected={currentContestation && (currentContestation.status === "Concluido") ? 'selected' : false}>Concluido</option>
+                            </select>
                         </div>
                     </div>   
                     {currentContestation && currentContestation.status === "Concluido" ?
                         <div className="mb-3 row">
                             <label className="form-label col-form-label col-sm-2">Status - feedback</label>
                             <div className="col-sm-4">
-                            {currentContestation && localStorage.getItem('rules') === "corretor" ? 
-                                <select className="form-select" value={currentContestation.status_feedback | ''} onChange={handleStatusFeedback} aria-label="Default select">
+                                <select className="form-select" value={currentContestation.status_feedback} disabled={localStorage.getItem('rules') === "corretor" ? false: true} onChange={handleStatusFeedback} aria-label="Default select">
                                     <option selected={currentContestation.status_feedback === "Aceito" ? 'selected' : false}>Aceito</option>
                                     <option selected={currentContestation.status_feedback === "Não aceito" ? 'selected' : false}>Não aceito</option>
                                 </select>
-                                : 
-                                <select className="form-select" defaultValue={currentContestation.status_feedback | ''} disabled aria-label="Default select">
-                                    <option selected={currentContestation.status_feedback === "Aceito" ? 'selected' : false}>Aceito</option>
-                                    <option selected={currentContestation.status_feedback === "Não aceito" ? 'selected' : false}>Não aceito</option>
-                                </select>                            
-                            } 
                             </div>
                     
                             <label className="form-label col-form-label col-sm-2">Feedback</label>
                             <div className="col-sm-4">
-                                {currentContestation && localStorage.getItem('rules') === "corretor" ? 
-                                <textarea placeholder="Descrição" className="form-control" value={currentContestation && currentContestation.feedback} onChange={handleFeedback}>{currentContestation && currentContestation.feedback}</textarea>
-                                : 
-                                <textarea placeholder="Descrição" className="form-control" readOnly={localStorage.getItem('rules') === "corretor" ? false: true} defaultValue={currentContestation && currentContestation.feedback}>{currentContestation && currentContestation.feedback? currentContestation.feedback:''}</textarea>
-                                }
+                                <textarea placeholder="Descrição" className="form-control" readOnly={localStorage.getItem('rules') === "corretor" ? false: true} value={currentContestation && currentContestation.feedback} onChange={handleFeedback}>{currentContestation && currentContestation.feedback}</textarea>
                             </div>
                         </div> 
                         : ''
@@ -258,7 +239,7 @@ const ContestationsForm = (props) => {
                         </div>
                     </div>
                     <div style={{ color: "#555", fontSize: "12px", display: 'flex' }}>                        
-                        <input type = "checkbox" id="allowAccountAccess" name="allowAccountAccess" onChange={handleAccountAccess} checked={currentContestation && currentContestation.accountAccess === 1} />
+                        <input type = "checkbox" id="allowAccountAccess" name="allowAccountAccess" onClick={handleAccountAccess} checked={currentContestation && currentContestation.accountAccess === 1} />
                         <label style={{ marginLeft:"10px" }} htmlFor="allowAccountAccess">
                             Em observância à Lei nº. 13.709/18 – Lei Geral de Proteção de Dados Pessoais e demais normativas aplicáveis sobre proteção de Dados Pessoais, manifesto-me de forma informada, livre, expressa e consciente, no sentido de autorizar a corretora Sciath a realizar a análise necessária junto a operadora de saúde para esclarecer a contestação que estou encaminhando sobre a utilização do plano de saúde acima
                         </ label>                    
