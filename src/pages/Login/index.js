@@ -65,11 +65,16 @@ const Login = (props) => {
             localStorage.setItem('uuid', beneficiary.id);     
             
             //window.location.href = "/home"; 
-            navigate(`/home`);
+            if(localStorage.getItem('rules') === 'corretor'){
+                navigate(`/beneficiaries`);
+            }
+            else{
+                navigate(`/dashboard/${localStorage.getItem('uuid')}`);
+            }
+            //navigate(`/home`);
         })
         .catch((err) => {
             notifyWarn(err.response.data.message);
-            navigate(`/`);
         });         
     }
 
