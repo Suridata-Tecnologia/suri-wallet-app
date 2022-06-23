@@ -67,47 +67,48 @@ const ContestationsForm = (props) => {
 
     async function submitForm(e){
         e.preventDefault();
-        const data = {
-            utilizacao_code, 
-            description: currentContestation.description, 
-            user_id: currentUser.id,
-            beneficiary: currentUser.name,
-            cpf: currentUser.cpf,
-            params,
-            status: currentContestation.status || 'Não iniciado', 
-            feedback: currentContestation.feedback, 
-            status_feedback: currentContestation.status_feedback, 
-        };
+        if(window.confirm('Tem certeza que deseja continuar?')){       
+            const data = {
+                utilizacao_code, 
+                description: currentContestation.description, 
+                user_id: currentUser.id,
+                beneficiary: currentUser.name,
+                cpf: currentUser.cpf,
+                params,
+                status: currentContestation.status || 'Não iniciado', 
+                feedback: currentContestation.feedback, 
+                status_feedback: currentContestation.status_feedback, 
+            };
 
-        if(!op){
-            const hasContestation = await api.get(`/contestations/search/${utilizacao_code}`)
-            if(hasContestation.data.length > 0){
-                notifyWarn('Contestação já cadastrada!');
-                return;
+            if(!op){
+                const hasContestation = await api.get(`/contestations/search/${utilizacao_code}`)
+                if(hasContestation.data.length > 0){
+                    notifyWarn('Contestação já cadastrada!');
+                    return;
+                }
+
+                await api.post(`/contestations`, data)
+                .then((response) => {            
+                    notify('Contestação cadastrada!');
+                    handleHistory(response.data);  
+                    setCurrentContestation(response.data)
+                    navigate('/contestations');
+                })
+                .catch((err) => {
+                    notifyWarn(err.response.data.message);
+                });
             }
-
-            await api.post(`/contestations`, data)
-            .then((response) => {            
-                notify('Contestação cadastrada!');
-                handleHistory(response.data);  
-                setCurrentContestation(response.data)
-                navigate('/contestations');
-            })
-            .catch((err) => {
-                notifyWarn(err.response.data.message);
-            });
-        }
-        else{
-            await api.put(`/contestations/${currentContestation.id}`, data)
-            .then((response) => {          
-                handleHistory(currentContestation);  
-                notify('Contestação alterada!');
-            })
-            .catch((err) => {
-                notifyWarn(err.response.data.message);
-            });
-        }    
-            
+            else{
+                await api.put(`/contestations/${currentContestation.id}`, data)
+                .then((response) => {          
+                    handleHistory(currentContestation);  
+                    notify('Contestação alterada!');
+                })
+                .catch((err) => {
+                    notifyWarn(err.response.data.message);
+                });
+            }           
+        }            
     }
 
     async function handleHistory(contestation){
