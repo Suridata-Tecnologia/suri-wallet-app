@@ -74,7 +74,9 @@ const Contestations = (props) => {
                     <tr>
                         <th>Código</th>
                         <th>Beneficiário</th>                        
-                        <th>Descrição</th>
+                        <th>Solicitação</th>
+                        <th>Tipo de evento</th>
+                        <th>Descrição serviço</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -84,10 +86,12 @@ const Contestations = (props) => {
                         <th scope="row">{contestation.utilizacao_code.substring(0, 10)}</th>
                         <th>{contestation.name}</th>                        
                         <td>{contestation.description && contestation.description.substring(0, 20)}</td>
+                        <td>{JSON.parse(contestation.params)['Tipo_Evento']}</td>
+                        <td>{JSON.parse(contestation.params)['Descricao_Operadora']}</td>
                         <td>
                             <div className="btn-toolbar justify-content-between" role="toolbar" aria-label="with button groups">
                                 <div className="btn-group" role="group" aria-label="First group">
-                                    <button type="button" className="btn btn-dark" onClick={() => navigate(`/contestations/form/${contestation.utilizacao_code}_${contestation.cpf}?params=${JSON.stringify(contestation.params).replaceAll("\\", "")}`)} title="Contestação"><FaEdit /></button>
+                                    <button type="button" className="btn btn-dark" onClick={() => navigate(`/contestations/form/${contestation.cpf}_${contestation.utilizacao_code}?params=${JSON.stringify(contestation.params).replaceAll("\\", "")}`)} title="Contestação"><FaEdit /></button>
                                 </div>
                             </div>
                         </td>

@@ -67,48 +67,47 @@ const ContestationsForm = (props) => {
 
     async function submitForm(e){
         e.preventDefault();
-        if(window.confirm('Tem certeza que deseja continuar?')){       
-            const data = {
-                utilizacao_code, 
-                description: currentContestation.description, 
-                user_id: currentUser.id,
-                beneficiary: currentUser.name,
-                cpf: currentUser.cpf,
-                params,
-                status: currentContestation.status || 'Não iniciado', 
-                feedback: currentContestation.feedback, 
-                status_feedback: currentContestation.status_feedback, 
-            };
 
-            if(!op){
-                const hasContestation = await api.get(`/contestations/search/${utilizacao_code}`)
-                if(hasContestation.data.length > 0){
-                    notifyWarn('Contestação já cadastrada!');
-                    return;
-                }
+        const data = {
+            utilizacao_code, 
+            description: currentContestation.description, 
+            user_id: currentUser.id,
+            beneficiary: currentUser.name,
+            cpf: currentUser.cpf,
+            params,
+            status: currentContestation.status || 'Não iniciado', 
+            feedback: currentContestation.feedback, 
+            status_feedback: currentContestation.status_feedback, 
+            accountAccess: currentContestation.accountAccess,
+        };
 
-                await api.post(`/contestations`, data)
-                .then((response) => {            
-                    notify('Contestação cadastrada!');
-                    handleHistory(response.data);  
-                    setCurrentContestation(response.data)
-                    navigate('/contestations');
-                })
-                .catch((err) => {
-                    notifyWarn(err.response.data.message);
-                });
+        if(!op){
+            const hasContestation = await api.get(`/contestations/search/${utilizacao_code}`)
+            if(hasContestation.data.length > 0){
+                notifyWarn('Contestação já cadastrada!');
+                return;
             }
-            else{
-                await api.put(`/contestations/${currentContestation.id}`, data)
-                .then((response) => {          
-                    handleHistory(currentContestation);  
-                    notify('Contestação alterada!');
-                })
-                .catch((err) => {
-                    notifyWarn(err.response.data.message);
-                });
-            }           
-        }            
+            await api.post(`/contestations`, data)
+            .then((response) => {            
+                notify('Contestação cadastrada!');
+                handleHistory(response.data);  
+                setCurrentContestation(response.data)
+                navigate('/contestations');
+            })
+            .catch((err) => {
+                notifyWarn(err.response.data.message);
+            });
+        }
+        else{
+            await api.put(`/contestations/${currentContestation.id}`, data)
+            .then((response) => {          
+                handleHistory(currentContestation);  
+                notify('Contestação alterada!');
+            })
+            .catch((err) => {
+                notifyWarn(err.response.data.message);
+            });
+        }                   
     }
 
     async function handleHistory(contestation){
@@ -152,6 +151,13 @@ const ContestationsForm = (props) => {
         setCurrentContestation(list);
     }
 
+    function handleAccountAccess(e){
+        const { checked } = e.target;
+        let list = { ...currentContestation };
+        list.accountAccess = checked ? 1: 0;
+        setCurrentContestation(list);
+    }
+
     return (
         <>
         <ToastContainer /> 
@@ -189,30 +195,54 @@ const ContestationsForm = (props) => {
                     </div> 
                     <div className="mb-3 row">
                         <label className="form-label col-form-label col-sm-2">Descricao Operadora</label>
-                        <div className="col-sm-10"><input placeholder="Descricao_Operadora" name="Descricao_Operadora" type="text" className="form-control" readOnly defaultValue={params['Descricao_Operadora']} /></div>
+                        <div className="col-sm-4"><input placeholder="Descricao_Operadora" name="Descricao_Operadora" type="text" className="form-control" readOnly defaultValue={params['Descricao_Operadora']} /></div>
+
+                        <label className="form-label col-form-label col-sm-2">Tipo Evento</label>
+                        <div className="col-sm-4"><input placeholder="Tipo_Evento" name="Tipo_Evento" type="text" className="form-control" readOnly defaultValue={params['Tipo_Evento']} /></div>
                     </div>  
                     <div className="mb-3 row">
                         <label className="form-label col-form-label col-sm-2">Status</label>
                         <div className="col-sm-10">
-                            <select className="form-select" value={currentContestation && currentContestation.status} disabled={localStorage.getItem('rules') === "corretor" ? false: true} onChange={handleStatus} aria-label="Default select">
-                                <option selected={currentContestation && (currentContestation.status === "Não iniciado") ? 'selected' : false}>Não iniciado</option>
-                                <option selected={currentContestation && (currentContestation.status === "Em andamento") ? 'selected' : false}>Em andamento</option>
-                                <option selected={currentContestation && (currentContestation.status === "Concluido") ? 'selected' : false}>Concluido</option>
-                            </select>
+                            {currentContestation && localStorage.getItem('rules') === "corretor" ? 
+                                <select className="form-select" value={currentContestation && currentContestation.contestation_status| ''} onChange={handleStatus} aria-label="Default select">
+                                    <option value={currentContestation && currentContestation.contestation_status | ''} selected={currentContestation && (currentContestation.status === "Não iniciado") ? 'selected' : false}>Não iniciado</option>
+                                    <option value={currentContestation && currentContestation.contestation_status | ''} selected={currentContestation && (currentContestation.status === "Em andamento") ? 'selected' : false}>Em andamento</option>
+                                    <option value={currentContestation && currentContestation.contestation_status | ''} selected={currentContestation && (currentContestation.status === "Concluido") ? 'selected' : false}>Concluido</option>
+                                </select>
+                                : 
+                                <select className="form-select" defaultValue={currentContestation && currentContestation.status| ''} disabled aria-label="Default select">
+                                    <option value={currentContestation && currentContestation.contestation_status | ''} selected={currentContestation && (currentContestation.status === "Não iniciado") ? 'selected' : false}>Não iniciado</option>
+                                    <option value={currentContestation && currentContestation.contestation_status | ''} selected={currentContestation && (currentContestation.status === "Em andamento") ? 'selected' : false}>Em andamento</option>
+                                    <option value={currentContestation && currentContestation.contestation_status | ''} selected={currentContestation && (currentContestation.status === "Concluido") ? 'selected' : false}>Concluido</option>
+                                </select>
+                            }                            
                         </div>
                     </div>   
                     {currentContestation && currentContestation.status === "Concluido" ?
                         <div className="mb-3 row">
                             <label className="form-label col-form-label col-sm-2">Status - feedback</label>
                             <div className="col-sm-4">
-                                <select className="form-select" value={currentContestation.status_feedback} disabled={localStorage.getItem('rules') === "corretor" ? false: true} onChange={handleStatusFeedback} aria-label="Default select">
+                            {currentContestation && localStorage.getItem('rules') === "corretor" ? 
+                                <select className="form-select" value={currentContestation.status_feedback | ''} onChange={handleStatusFeedback} aria-label="Default select">
                                     <option selected={currentContestation.status_feedback === "Aceito" ? 'selected' : false}>Aceito</option>
                                     <option selected={currentContestation.status_feedback === "Não aceito" ? 'selected' : false}>Não aceito</option>
                                 </select>
+                                : 
+                                <select className="form-select" defaultValue={currentContestation.status_feedback | ''} disabled aria-label="Default select">
+                                    <option selected={currentContestation.status_feedback === "Aceito" ? 'selected' : false}>Aceito</option>
+                                    <option selected={currentContestation.status_feedback === "Não aceito" ? 'selected' : false}>Não aceito</option>
+                                </select>                            
+                            } 
                             </div>
                     
                             <label className="form-label col-form-label col-sm-2">Feedback</label>
-                            <div className="col-sm-4"><textarea placeholder="Descrição" className="form-control" readOnly={localStorage.getItem('rules') === "corretor" ? false: true} value={currentContestation && currentContestation.feedback} onChange={handleFeedback}>{currentContestation && currentContestation.feedback}</textarea></div>
+                            <div className="col-sm-4">
+                                {currentContestation && localStorage.getItem('rules') === "corretor" ? 
+                                <textarea placeholder="Descrição" className="form-control" value={currentContestation && currentContestation.feedback} onChange={handleFeedback}>{currentContestation && currentContestation.feedback}</textarea>
+                                : 
+                                <textarea placeholder="Descrição" className="form-control" readOnly={localStorage.getItem('rules') === "corretor" ? false: true} defaultValue={currentContestation && currentContestation.feedback}>{currentContestation && currentContestation.feedback? currentContestation.feedback:''}</textarea>
+                                }
+                            </div>
                         </div> 
                         : ''
                     }                                 
@@ -227,14 +257,16 @@ const ContestationsForm = (props) => {
                             
                         </div>
                     </div>
-                    <div className="mb-3 row">
-                        
-                        <p style={{ color: "#555", fontSize: "12px" }}>Ao clicar em "Salvar", você está permitindo ao account o acesso aos detalhes desta utilização.</p>
-                        <hr />
+                    <div style={{ color: "#555", fontSize: "12px", display: 'flex' }}>                        
+                        <input type = "checkbox" id="allowAccountAccess" name="allowAccountAccess" onChange={handleAccountAccess} checked={currentContestation && currentContestation.accountAccess === 1} />
+                        <label style={{ marginLeft:"10px" }} htmlFor="allowAccountAccess">
+                            Em observância à Lei nº. 13.709/18 – Lei Geral de Proteção de Dados Pessoais e demais normativas aplicáveis sobre proteção de Dados Pessoais, manifesto-me de forma informada, livre, expressa e consciente, no sentido de autorizar a corretora Sciath a realizar a análise necessária junto a operadora de saúde para esclarecer a contestação que estou encaminhando sobre a utilização do plano de saúde acima
+                        </ label>                    
                     </div>
+                    <hr />
                     <div role="toolbar" className="mb-3 row">
                         <div className="buttons">
-                            <button type="submit" className="btn btn-success">Salvar</button>
+                            <button type="submit" className="btn btn-success" disabled={currentContestation && currentContestation.accountAccess === 1?false:true} >Salvar</button>
                             <button type="button" className="btn btn-danger" style={{marginRight: '10px'}} onClick={ () => navigate(-1) }>Voltar</button>                        
                         </div>
                     </div>
