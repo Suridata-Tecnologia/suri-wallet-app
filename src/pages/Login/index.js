@@ -33,7 +33,7 @@ const Login = (props) => {
             async function findBeneficiaryData(){
                 await api
                 .get(`/beneficiaries/search/${cpf}`)
-                .then((response) => {            
+                .then((response) => {         
                     setBeneficiary(response.data);
                     if(response.data.is_first_access) navigate('/choose-channel');
                     else navigate('/login');
@@ -55,17 +55,22 @@ const Login = (props) => {
         .post('/login', data)
         .then((response) => {            
             const { token, rules } = response.data;
+            const refreshToken = response.data.refreshToken.id;
+
             login(token);
             setRules(rules);
 
-            localStorage.setItem('uuid', beneficiary.id);         
+            localStorage.setItem('token', token); 
+            localStorage.setItem('rt', refreshToken);   
+            localStorage.setItem('uuid', beneficiary.id);     
+            
+            //window.location.href = "/home"; 
+            navigate(`/home`);
         })
         .catch((err) => {
             notifyWarn(err.response.data.message);
             navigate(`/`);
-        });
-        
-        window.location.href = "/home";   
+        });         
     }
 
     async function confirmUserAccount(){
