@@ -1,5 +1,4 @@
 import axios from 'axios';
-import env from "react-dotenv";
 
 function getLocalAccessToken() {
   const accessToken = localStorage.getItem("token");

@@ -63,7 +63,7 @@ const ContestationsForm = (props) => {
 
         handleContestations();  
 
-    }, []);
+    }, [cpf, utilizacao_code]);
 
     async function submitForm(e){
         e.preventDefault();

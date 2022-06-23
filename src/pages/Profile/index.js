@@ -10,18 +10,17 @@ import api from '../../services/api';
 
 import Menu from '../../components/Menu';
 
-const Profile = (props) => {
+const Profile = (props) => {    
     const [ currentUser, setCurrentUser ] = useState();
     const [ password, setPassword ] = useState();
     const [ password1, setPassword1 ] = useState();
 
     const navigate = useNavigate(); 
 
-    const { user_id } = useParams();
-
     const notify = (message) => toast.success(message);
     const notifyWarn = (message) => toast.warn(message);
 
+    const { user_id } = useParams();
     useEffect(()=>{
         async function handleBeneficiaries(){
             await api
@@ -35,7 +34,7 @@ const Profile = (props) => {
         }
 
         handleBeneficiaries();      
-    }, []);
+    }, [user_id]);
 
     async function submitForm(e){
         e.preventDefault();

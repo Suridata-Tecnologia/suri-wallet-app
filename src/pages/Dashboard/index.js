@@ -49,7 +49,7 @@ const Dashboard = (props) => {
         }
 
         handleBeneficiaries();  
-    }, []);
+    }, [user_id]);
 
     return (
         <>

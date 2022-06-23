@@ -38,7 +38,7 @@ const Contestations = (props) => {
         }
 
         findAllContestations();      
-    }, []);
+    }, [user_id]);
 
     function handleUtiCode(e){
         const { value } = e.target;
