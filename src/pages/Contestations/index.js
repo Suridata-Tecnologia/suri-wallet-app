@@ -72,8 +72,8 @@ const Contestations = (props) => {
             <table className="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>Beneficiário</th>
-                        <th>Código da utilização</th>
+                        <th>Código</th>
+                        <th>Beneficiário</th>                        
                         <th>Descrição</th>
                         <th>Ações</th>
                     </tr>
@@ -81,8 +81,8 @@ const Contestations = (props) => {
                 <tbody>
                 {contestations.map(contestation => (
                     <tr key={contestation.id}>
-                        <th scope="row">{contestation.name}</th>
-                        <th>{contestation.utilizacao_code}</th>
+                        <th scope="row">{contestation.utilizacao_code.substring(0, 10)}</th>
+                        <th>{contestation.name}</th>                        
                         <td>{contestation.description && contestation.description.substring(0, 20)}</td>
                         <td>
                             <div className="btn-toolbar justify-content-between" role="toolbar" aria-label="with button groups">

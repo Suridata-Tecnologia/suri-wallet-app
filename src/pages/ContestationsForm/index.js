@@ -18,7 +18,8 @@ const ContestationsForm = (props) => {
     const { uti_id } = useParams();
 
     const search = useLocation().search;    
-    var params = JSON.parse(JSON.stringify(new URLSearchParams(search).get('params')));  
+    var params = JSON.parse(JSON.stringify(new URLSearchParams(search).get('params'))); 
+
     if(params.startsWith('"')){
         params = JSON.parse(params.slice(1, -1));
     }  
@@ -26,8 +27,8 @@ const ContestationsForm = (props) => {
         params = JSON.parse(params);
     }
 
-    const utilizacao_code = uti_id.split("_")[0];
-    const cpf      = uti_id.split("_")[1];
+    const utilizacao_code = uti_id.split("_")[1];
+    const cpf      = uti_id.split("_")[0];
 
     const navigate = useNavigate(); 
 
