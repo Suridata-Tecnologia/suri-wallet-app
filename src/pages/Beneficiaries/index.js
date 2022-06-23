@@ -68,6 +68,8 @@ const Beneficiaries = (props) => {
                     <tr>
                         <th>CPF</th>
                         <th>Beneficiario</th>
+                        <th>E-mail</th>
+                        <th>Celular</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -75,7 +77,9 @@ const Beneficiaries = (props) => {
                     beneficiary.id !== localStorage.getItem('uuid') && 
                     <tr key={beneficiary.id}>
                         <th scope="row">{beneficiary.cpf}</th>
-                        <td>{beneficiary.name}</td>                        
+                        <td>{beneficiary.name}</td>   
+                        <td>{beneficiary.email}</td>    
+                        <td>{beneficiary.phone}</td>                         
                     </tr>                     
                 ))}
                 </tbody>
