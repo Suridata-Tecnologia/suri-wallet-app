@@ -32,14 +32,8 @@ const Menu = (props) => {
                 </li>
 
                 {localStorage.getItem('rules') === 'corretor' && 
-                    <li className="nav-item dropdown">
-                        <label className="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Beneficiários
-                        </label>
-                        <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <label className="dropdown-item" onClick={() => navigate('/beneficiaries')}>Listar</label>
-                            <label className="dropdown-item" onClick={() => navigate(`/contestations`)}>Contestações</label>
-                        </div>
+                    <li className="nav-item">
+                        <label className="nav-link" onClick={() => navigate(`/contestations`)}>Contestações</label>
                     </li>
                 }
 

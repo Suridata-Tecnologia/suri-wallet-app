@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+.auth-container{
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    background-image: url('https://portal.suridata.com.br/img/Imagem%20Potal%20Suri%20-%20menor.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.card{
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 400px;
+    background-color: rgba(50, 50, 50, 0.4) !important;
+}
+
+.input-group-prepend span{
+    width: 50px;
+    background-color: #212529;
+    color: #fff;
+    border:0 !important;
+}
+
+.input-group-text{
+    height: 40px;
+}
+
+input:focus{
+    outline: 0 0 0 0  !important;
+    box-shadow: 0 0 0 0 !important;
+}
+
+.button-group{
+    margin-top: 10px;
+    width: 100%;
+}
+
+.card-header{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.btn{
+    width: 100%;
+}
+
+.btn-group{
+    width: 100%!important;
+}
+.btn-outline-info {
+    color: #777!important;
+    border-color: #777!important;
+}
+
+.btn-outline-info:hover {
+    color: #777!important;
+    border-color: #777!important;
+    background-color: #f1f1f1!important;
+}
+
+.title{
+    color: #eee;
+    margin-bottom: 10px;
+}
+
+.password-group{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.password-group input{
+    margin-bottom: 5px;
+}
+
+@media screen and (max-width: 600px) {    
+    .container{
+        padding: 0;
+    }
+    .card{
+        width: 100%;
+        height: 100%;
+    }
+    .input-group-text, .btn{
+        height: 35px;
+    }
+}
+
+@media screen and (max-width: 300px) {    
+    .input-group-text, .btn{
+        font-size: 11px!important;
+        height: 45px;
+    }
+    
+    .input-group-prepend span{
+        width: 35px;
+    }
+}

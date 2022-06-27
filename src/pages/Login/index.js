@@ -66,7 +66,7 @@ const Login = (props) => {
             
             //window.location.href = "/home"; 
             if(localStorage.getItem('rules') === 'corretor'){
-                navigate(`/beneficiaries`);
+                navigate(`/contestations`);
             }
             else{
                 navigate(`/dashboard/${localStorage.getItem('uuid')}`);

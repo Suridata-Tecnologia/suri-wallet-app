@@ -72,7 +72,6 @@ const Contestations = (props) => {
             <table className="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>Código</th>
                         <th>Beneficiário</th>                        
                         <th>Solicitação</th>
                         <th>Tipo de evento</th>
@@ -84,8 +83,7 @@ const Contestations = (props) => {
                 <tbody>
                 {contestations.map(contestation => (
                     <tr key={contestation.id}>
-                        <th scope="row">{contestation.utilizacao_code.substring(0, 10)}</th>
-                        <th>{contestation.name}</th>                        
+                        <th scope="row">{contestation.name}</th>                        
                         <td>{contestation.description && contestation.description.substring(0, 20)}</td>
                         <td>{JSON.parse(contestation.params)['Tipo_Evento']}</td>
                         <td>{JSON.parse(contestation.params)['Descricao_Operadora']}</td>
