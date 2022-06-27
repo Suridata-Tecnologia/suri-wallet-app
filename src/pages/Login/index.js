@@ -54,7 +54,7 @@ const Login = (props) => {
         await api
         .post('/login', data)
         .then((response) => {            
-            const { token, rules } = response.data;
+            const { token, rules, logo, health_id } = response.data;
             const refreshToken = response.data.refreshToken.id;
 
             login(token);
@@ -62,7 +62,9 @@ const Login = (props) => {
 
             localStorage.setItem('token', token); 
             localStorage.setItem('rt', refreshToken);   
-            localStorage.setItem('uuid', beneficiary.id);     
+            localStorage.setItem('uuid', beneficiary.id);   
+            localStorage.setItem('logo', logo);
+            localStorage.setItem('hb_id', health_id);            
             
             //window.location.href = "/home"; 
             if(localStorage.getItem('rules') === 'corretor'){

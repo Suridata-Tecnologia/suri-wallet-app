@@ -25,7 +25,7 @@ const Contestations = (props) => {
         async function findAllContestations(){
             var endpoint = '';
             if(user_id){ endpoint = `/contestations/${user_id}` }
-            else{ endpoint = `/contestations` }
+            else{ endpoint = `/contestations/find/${localStorage.getItem('hb_id')}` }
 
             await api
             .get(endpoint)
