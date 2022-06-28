@@ -91,8 +91,7 @@ const ContestationsForm = (props) => {
             .then((response) => {            
                 notify('Contestação cadastrada!');
                 handleHistory(response.data);  
-                setCurrentContestation(response.data)
-                navigate(-1);
+                setCurrentContestation(response.data);
             })
             .catch((err) => {
                 notifyWarn(err.response.data.message);
@@ -178,6 +177,13 @@ const ContestationsForm = (props) => {
                    
                         <label className="form-label col-form-label col-sm-2">CPF Titular</label>
                         <div className="col-sm-4"><input placeholder="Nome" name="name" type="text" className="form-control" readOnly defaultValue={currentUser.cpf_holder} /></div>
+                    </div>
+                    <div className="mb-3 row">
+                        <label className="form-label col-form-label col-sm-2">E-mail</label>
+                        <div className="col-sm-4"><input placeholder="E-mail" name="email" type="text" className="form-control" readOnly defaultValue={currentUser.email} /></div>
+                   
+                        <label className="form-label col-form-label col-sm-2">Celular</label>
+                        <div className="col-sm-4"><input placeholder="Celular" name="phone" type="text" className="form-control" readOnly defaultValue={currentUser.phone} /></div>
                     </div>
                     <div className="mb-3 row">
                         <label className="form-label col-form-label col-sm-2">Código Procedimento</label>

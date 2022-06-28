@@ -93,7 +93,7 @@ const Profile = (props) => {
                         <label className="form-label col-form-label col-sm-2">Nome</label>
                         <div className="col-sm-4"><input placeholder="Nome" name="name" type="text" className="form-control" defaultValue={currentUser.name} readOnly /></div>
                         {currentUser.id === localStorage.getItem('uuid') && 
-                            <input className="btn btn-link col-sm-6" data-toggle="modal" data-target="#passModal" defaultValue="Alterar Senha" />
+                            <input className="btn btn-link col-sm-5" data-toggle="modal" data-target="#passModal" defaultValue="Alterar Senha" />
                         }
                     </div>
                     <div className="mb-3 row">
