@@ -170,17 +170,17 @@ const ContestationsForm = (props) => {
                 <form className="panel" onSubmit={submitForm}>
                     <div className="mb-3 row">
                         <label className="form-label col-form-label col-sm-2">Código Usuário/Servico</label>
-                        <div className="col-sm-4"><input placeholder="Nome" name="name" type="text" className="form-control" readOnly defaultValue={utilizacao_code} /></div>
+                        <div className="col-sm-4"><input placeholder="Nome" name="name" type="text" className="form-control" readOnly defaultValue={params['CodUsuarioServico']} /></div>
                     </div>
                     <div className="mb-3 row">
-                        <label className="form-label col-form-label col-sm-2">Descrição Usuário</label>
+                        <label className="form-label col-form-label col-sm-2">Nome Beneficiário</label>
                         <div className="col-sm-4"><input placeholder="Nome" name="name" type="text" className="form-control" readOnly defaultValue={params['Descricao_Usuario']} /></div>
                    
                         <label className="form-label col-form-label col-sm-2">CPF Titular</label>
                         <div className="col-sm-4"><input placeholder="Nome" name="name" type="text" className="form-control" readOnly defaultValue={currentUser.cpf_holder} /></div>
                     </div>
                     <div className="mb-3 row">
-                        <label className="form-label col-form-label col-sm-2">Código Original</label>
+                        <label className="form-label col-form-label col-sm-2">Código Procedimento</label>
                         <div className="col-sm-4"><input placeholder="cd_original" name="cd_original" type="text" className="form-control" readOnly defaultValue={params['cd_original']} /></div>
                    
                         <label className="form-label col-form-label col-sm-2">Rede Reembolso</label>
@@ -194,7 +194,7 @@ const ContestationsForm = (props) => {
                         <div className="col-sm-4"><input placeholder="Data_Atendto" name="Data_Atendto" type="text" className="form-control" readOnly defaultValue={params['Data_Atendto']} /></div>
                     </div> 
                     <div className="mb-3 row">
-                        <label className="form-label col-form-label col-sm-2">Descrição Operadora</label>
+                        <label className="form-label col-form-label col-sm-2">Descrição Procedimento</label>
                         <div className="col-sm-4"><input placeholder="Descricao_Operadora" name="Descricao_Operadora" type="text" className="form-control" readOnly defaultValue={params['Descricao_Operadora']} /></div>
 
                         <label className="form-label col-form-label col-sm-2">Tipo Evento</label>
