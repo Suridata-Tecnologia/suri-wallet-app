@@ -76,7 +76,7 @@ const Contestations = (props) => {
                         <th>Solicitação</th>
                         <th>Tipo de evento</th>
                         <th>Descrição serviço</th>
-                        <th>E-mail</th>
+                        <th>Email</th>
                         <th>Celular</th>
                         <th>Status</th>
                         <th>Ações</th>
