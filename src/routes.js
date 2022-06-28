@@ -8,7 +8,6 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import ContestationsForm from "./pages/ContestationsForm";
 import Dashboard from "./pages/Dashboard";
-import Beneficiaries from "./pages/Beneficiaries";
 import Contestations from "./pages/Contestations";
 
 
