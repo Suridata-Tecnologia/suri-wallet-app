@@ -92,7 +92,7 @@ const ContestationsForm = (props) => {
                 notify('Contestação cadastrada!');
                 handleHistory(response.data);  
                 setCurrentContestation(response.data)
-                navigate('/contestations');
+                navigate(-1);
             })
             .catch((err) => {
                 notifyWarn(err.response.data.message);
@@ -174,7 +174,7 @@ const ContestationsForm = (props) => {
                     </div>
                     <div className="mb-3 row">
                         <label className="form-label col-form-label col-sm-2">Descrição Usuário</label>
-                        <div className="col-sm-4"><input placeholder="Nome" name="name" type="text" className="form-control" readOnly defaultValue={currentUser.name} /></div>
+                        <div className="col-sm-4"><input placeholder="Nome" name="name" type="text" className="form-control" readOnly defaultValue={params['Descricao_Usuario']} /></div>
                    
                         <label className="form-label col-form-label col-sm-2">CPF Titular</label>
                         <div className="col-sm-4"><input placeholder="Nome" name="name" type="text" className="form-control" readOnly defaultValue={currentUser.cpf_holder} /></div>
