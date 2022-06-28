@@ -67,6 +67,18 @@ const Profile = (props) => {
             notifyWarn(err.response.data.message);
         });
     }
+
+    function handleInputChange(e){
+        const { value, name } = e.target;
+
+        let list = { ...currentUser };
+
+        if(name === 'email') list.email = value;
+        else list.phone = value;
+
+        setCurrentUser(list);
+    }
+    
     return (
         <>
         <ToastContainer /> 
@@ -85,11 +97,18 @@ const Profile = (props) => {
                         }
                     </div>
                     <div className="mb-3 row">
-                    <label className="form-label col-form-label col-sm-2">CPF</label>
+                        <label className="form-label col-form-label col-sm-2">CPF</label>
                         <div className="col-sm-4"><input placeholder="00000000000" name="cpf" type="text" className="form-control" defaultValue={currentUser.cpf} readOnly /></div>
 
                         <label className="form-label col-form-label col-sm-2">CPF Titular</label>
                         <div className="col-sm-4"><input placeholder="00000000000" name="cpf_holder" type="text" className="form-control" defaultValue={currentUser.cpf_holder} readOnly /></div>
+                    </div>
+                    <div className="mb-3 row">
+                        <label className="form-label col-form-label col-sm-2">E-mail</label>
+                        <div className="col-sm-4"><input placeholder="E-mail" name="email" type="text" className="form-control" value={currentUser.email || ''} onChange={handleInputChange} readOnly={currentUser.email === null? false: true} /></div>
+
+                        <label className="form-label col-form-label col-sm-2">Celular</label>
+                        <div className="col-sm-4"><input placeholder="Celular" name="phone" type="text" className="form-control" value={currentUser.phone || ''} onChange={handleInputChange} readOnly={currentUser.phone === null? false: true} /></div>
                     </div>
                     <div className="mb-3 row">
                         <label className="form-label col-form-label col-sm-2">Empresa</label>
