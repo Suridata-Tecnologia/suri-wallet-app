@@ -22,7 +22,7 @@ const AdminLogin = (props) => {
         await api
         .post('/admin-login', data)
         .then((response) => {            
-            const { token, rules, uuid, refreshToken } = response.data;
+            const { token, rules, uuid, refreshToken, logo, health_id } = response.data;
 
             login(token);
             setRules(rules);
@@ -30,6 +30,8 @@ const AdminLogin = (props) => {
             localStorage.setItem('token', token); 
             localStorage.setItem('rt', refreshToken);   
             localStorage.setItem('uuid', uuid);     
+            localStorage.setItem('logo', logo);
+            localStorage.setItem('hb_id', health_id); 
             
             navigate(`/contestations`);
         })
@@ -56,6 +58,9 @@ const AdminLogin = (props) => {
         setPassword(value);
     }
 
+    function handleNavigate(){
+        navigate('/');
+    }
     return (
         <>
         <ToastContainer /> 
@@ -66,7 +71,7 @@ const AdminLogin = (props) => {
                         <div className="card-header">
                             <img src="https://portal.suridata.com.br/img/suridata_logo_v6.png" alt="Logo login" width="100px" />
                         </div>
-                        <hr />
+                        <hr />                        
                         <form onSubmit={handleSubmit}>
                             <div className="form-group" style={{color: "white"}}>
                                 <label htmlFor="email">Email</label>
@@ -79,6 +84,8 @@ const AdminLogin = (props) => {
                             <br />
                             <button className="btn btn-dark">Entrar</button>
                         </form>
+                        <hr/>
+                        <input className="btn btn-link" onClick={handleNavigate} value="Logar como beneficiário" />
                     </div>           
                 </div>
             </div>

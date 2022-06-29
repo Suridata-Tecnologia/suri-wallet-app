@@ -168,6 +168,9 @@ const Login = (props) => {
         setPassword(value);
     }
 
+    function handleNavigate(){
+        navigate('/admin-login');
+    }
     return (
         <>
         <ToastContainer /> 
@@ -178,7 +181,7 @@ const Login = (props) => {
                         <div className="card-header">
                             <img src="https://portal.suridata.com.br/img/suridata_logo_v6.png" alt="Logo login" width="100px" />
                         </div>
-                        <hr />
+                        <hr />                        
                         <form>
                             <div className="input-group form-group">
                                 {stage === "1" &&                                 
@@ -225,6 +228,8 @@ const Login = (props) => {
                                 </button>
                             </div>
                         </form>
+                        <hr/>
+                        <input className="btn btn-link" onClick={handleNavigate} value="Logar como account" />
                     </div>           
                 </div>
             </div>

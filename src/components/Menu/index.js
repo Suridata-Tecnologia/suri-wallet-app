@@ -48,7 +48,7 @@ const Menu = (props) => {
                     : ''
                 }
                 <li className="nav-item active">
-                    <label className="nav-link" onClick={() => { logout(); navigate('/') }}>Sair</label>
+                    <label className="nav-link" onClick={() => { navigate(localStorage.getItem('rules') === 'corretor' ? '/admin-login' : '/' ); logout(); }}>Sair</label>
                 </li>
                 </ul>                
             </div>
