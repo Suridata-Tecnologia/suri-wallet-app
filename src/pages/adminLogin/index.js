@@ -75,17 +75,17 @@ const AdminLogin = (props) => {
                         <form onSubmit={handleSubmit}>
                             <div className="form-group" style={{color: "white"}}>
                                 <label htmlFor="email">Email</label>
-                                <input type="email" className="form-control" id="email" onChange={handleEmail} aria-describedby="E-mail" placeholder="Digite o e-mail" />
+                                <input type="email" className="form-control" id="email" onChange={handleEmail} value={email || ''} placeholder="Digite o e-mail" />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="password" style={{color: "white"}}>Senha</label>
-                                <input type="password" className="form-control" id="password" onChange={handlePassword} placeholder="Digite a senha" />
+                                <input type="password" className="form-control" id="password" onChange={handlePassword} value={password || ''} placeholder="Digite a senha" />
                             </div>
                             <br />
                             <button className="btn btn-dark">Entrar</button>
                         </form>
                         <hr/>
-                        <input className="btn btn-link" onClick={handleNavigate} value="Logar como beneficiário" />
+                        <button className="btn btn-link" onClick={handleNavigate} >Logar como beneficiário</button>
                     </div>           
                 </div>
             </div>

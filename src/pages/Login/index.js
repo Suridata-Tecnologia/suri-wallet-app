@@ -229,7 +229,7 @@ const Login = (props) => {
                             </div>
                         </form>
                         <hr/>
-                        <input className="btn btn-link" onClick={handleNavigate} value="Logar como account" />
+                        <button className="btn btn-link" onClick={handleNavigate} >Logar como account</button>
                     </div>           
                 </div>
             </div>
