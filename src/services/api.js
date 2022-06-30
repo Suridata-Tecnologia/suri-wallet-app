@@ -10,7 +10,7 @@ function getLocalRefreshToken() {
 }
 
 const api = axios.create({
-  baseURL: 'http://localhost:3030/',
+  baseURL: 'http://suri-wallet-api-k7z65.ondigitalocean.app/',
   headers: {
     "Content-Type": "application/json",
     headers: {'access': localStorage.getItem("rules")}
