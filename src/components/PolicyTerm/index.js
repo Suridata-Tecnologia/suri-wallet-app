@@ -42,7 +42,7 @@ const PolicyTerm = () => {
                         <span type="button" id="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">&times;</span>
                     </div>
                     <div className="modal-body" style={{ height:"700px", overflowY: "scroll", overflow: "hidden" }}>
-                        Esta política é válida a partir de Mar 2022.
+                        Esta política é válida a partir de Março de 2022.
                         <br/>
                         <br/>
                         <br/>
