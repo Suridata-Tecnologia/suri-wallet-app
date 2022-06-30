@@ -123,29 +123,29 @@ const Contestations = (props) => {
                             <div className="btn-toolbar justify-content-between" role="toolbar" aria-label="with button groups">
                                 <div className="btn-group" role="group" aria-label="First group">
                                     <button type="button" className="btn btn-dark" onClick={() => navigate(`/contestations/form/${contestation.cpf}_${contestation.utilizacao_code}?params=${JSON.stringify(contestation.params).replaceAll("\\", "")}`)} title="Contestação"><FaEdit /></button>
-                                    <button type="button" className="btn btn-danger"  data-toggle="modal" data-target={`#cancelModal${contestation.id}`} onClick={() => {}} title="Cancelar contestação"><FaTrash /></button>
+                                    { localStorage.getItem('uuid') === contestation.user_id && <button type="button" className="btn btn-danger"  data-toggle="modal" data-target={`#cancelModal${contestation.id}`} onClick={() => {}} title="Cancelar contestação"><FaTrash /></button>}
                                     <div className="modal fade" id={`cancelModal${contestation.id}`} tabIndex="-1" role="dialog" aria-labelledby={`cancelModal${contestation.id}`} aria-hidden="true">
-                                    <div className="modal-dialog" role="document">
-                                        <div className="modal-content">
-                                        <div className="modal-header">
-                                            <h5 className="modal-title" id="passModalLabel">Cancelar contestação</h5>
-                                            <button type="button" data-dismiss="modal" aria-label="Close" style={{ border: 'none', background: 'transparent'}}>
-                                            x
-                                            </button>
-                                        </div>
-                                        <div className="modal-body">
-                                            <div className="mb-3 row">
-                                                <label className="form-label col-form-label col-sm-4">Motivo do cancelamento</label>
-                                                <textarea placeholder="Digite o motivo do cancelamento" className="form-control" name={`reason_cancellation`} value={contestation.reason_cancellation || ''} onChange={(e) => handleContestationChange(e, i)}>{contestation.reason_cancellation}</textarea>
+                                        <div className="modal-dialog" role="document">
+                                            <div className="modal-content">
+                                            <div className="modal-header">
+                                                <h5 className="modal-title" id="passModalLabel">Cancelar contestação</h5>
+                                                <button type="button" data-dismiss="modal" aria-label="Close" style={{ border: 'none', background: 'transparent'}}>
+                                                x
+                                                </button>
+                                            </div>
+                                            <div className="modal-body">
+                                                <div className="mb-3 row">
+                                                    <label className="form-label col-form-label col-sm-4">Motivo do cancelamento</label>
+                                                    <textarea placeholder="Digite o motivo do cancelamento" className="form-control" name={`reason_cancellation`} value={contestation.reason_cancellation || ''} onChange={(e) => handleContestationChange(e, i)}>{contestation.reason_cancellation}</textarea>
+                                                </div>
+                                            </div>
+                                            <div className="modal-footer">
+                                                <input type="button" className="btn btn-dark" onClick={()=>handleRemoveContestation(contestation)} defaultValue="Concluir" />
+                                                <input type="button" className="btn btn-danger" id={`cancelButton${contestation.id}`} data-dismiss="modal" defaultValue="Voltar" />                
+                                            </div>
                                             </div>
                                         </div>
-                                        <div className="modal-footer">
-                                            <input type="button" className="btn btn-dark" onClick={()=>handleRemoveContestation(contestation)} defaultValue="Concluir" />
-                                            <input type="button" className="btn btn-danger" id={`cancelButton${contestation.id}`} data-dismiss="modal" defaultValue="Voltar" />                  
-                                        </div>
-                                        </div>
                                     </div>
-                        </div>
                                 </div>
                             </div>
                         </td>
