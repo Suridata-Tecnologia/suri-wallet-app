@@ -13,6 +13,7 @@ import Menu from '../../components/Menu';
 const ContestationsForm = (props) => {
     const [ currentUser, setCurrentUser ] = useState();
     const [ currentContestation, setCurrentContestation ] = useState();
+    const [ previousStatus, setPreviousStatus ] = useState();
     const [op, setOp] = useState(false);
     
     const { uti_id } = useParams();
@@ -55,6 +56,7 @@ const ContestationsForm = (props) => {
             .then((response) => {        
                 if(response.data.length > 0){ setOp(true) } 
                 setCurrentContestation(response.data[0]);
+                setPreviousStatus(response.data[0].status);
             })
             .catch((err) => {
                 notifyWarn(err.response.data.message);
@@ -68,7 +70,7 @@ const ContestationsForm = (props) => {
     async function submitForm(e){
         e.preventDefault();
 
-        const data = {
+        let data = {
             utilizacao_code, 
             description: currentContestation.description, 
             user_id: currentUser.id,
@@ -98,6 +100,7 @@ const ContestationsForm = (props) => {
             });
         }
         else{
+            data['previous_status'] = previousStatus;
             await api.put(`/contestations/${currentContestation.id}`, data)
             .then((response) => {          
                 handleHistory(currentContestation);  
