@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaEdit, FaSearch } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaSearch } from 'react-icons/fa';
 import { useParams } from "react-router-dom";
 import { useNavigate  } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
@@ -19,13 +19,13 @@ const Contestations = (props) => {
     const navigate = useNavigate();
     const { user_id } = useParams();
 
+    const notify = (message) => toast.success(message);
     const notifyWarn = (message) => toast.warn(message);
 
     useEffect(()=>{
         async function findAllContestations(){
             var endpoint = '';
             if(user_id){ endpoint = `/contestations/${user_id}` }
-            else{ endpoint = `/contestations/find/${localStorage.getItem('hb_id')}` }
 
             await api
             .get(endpoint)
@@ -53,6 +53,33 @@ const Contestations = (props) => {
             return;
         }
         setContestations(response.data);        
+    }
+
+    async function handleRemoveContestation(contestation){
+        await api
+        .put(`/contestations/remove/${contestation.id}`, { status:'Cancelada', reason_cancellation: contestation.reason_cancellation })
+        .then((response) => {            
+            document.getElementById(`cancelButton${contestation.id}`).click();
+
+            const contestationId = response.data.id;
+            setContestations(current =>
+              current.filter(con => {
+                return con.id !== contestationId;
+              }),
+            );
+            notify('Contestação cancelada!');
+        })
+        .catch((err) => {
+            notifyWarn(err.response.data.message);
+        });
+    }
+
+    function handleContestationChange(e, i){        
+        const { value } = e.target;        
+
+        let list = [ ...contestations ];
+        list[i].reason_cancellation = value;        
+        setContestations(list);        
     }
 
     return (
@@ -83,7 +110,7 @@ const Contestations = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                {contestations.map(contestation => (
+                {contestations.map((contestation, i) => (
                     <tr key={contestation.id}>
                         <th scope="row">{contestation.name}</th>                        
                         <td>{contestation.description && contestation.description.substring(0, 20)}</td>
@@ -96,10 +123,33 @@ const Contestations = (props) => {
                             <div className="btn-toolbar justify-content-between" role="toolbar" aria-label="with button groups">
                                 <div className="btn-group" role="group" aria-label="First group">
                                     <button type="button" className="btn btn-dark" onClick={() => navigate(`/contestations/form/${contestation.cpf}_${contestation.utilizacao_code}?params=${JSON.stringify(contestation.params).replaceAll("\\", "")}`)} title="Contestação"><FaEdit /></button>
+                                    <button type="button" className="btn btn-danger"  data-toggle="modal" data-target={`#cancelModal${contestation.id}`} onClick={() => {}} title="Cancelar contestação"><FaTrash /></button>
+                                    <div className="modal fade" id={`cancelModal${contestation.id}`} tabIndex="-1" role="dialog" aria-labelledby={`cancelModal${contestation.id}`} aria-hidden="true">
+                                    <div className="modal-dialog" role="document">
+                                        <div className="modal-content">
+                                        <div className="modal-header">
+                                            <h5 className="modal-title" id="passModalLabel">Cancelar contestação</h5>
+                                            <button type="button" data-dismiss="modal" aria-label="Close" style={{ border: 'none', background: 'transparent'}}>
+                                            x
+                                            </button>
+                                        </div>
+                                        <div className="modal-body">
+                                            <div className="mb-3 row">
+                                                <label className="form-label col-form-label col-sm-4">Motivo do cancelamento</label>
+                                                <textarea placeholder="Digite o motivo do cancelamento" className="form-control" name={`reason_cancellation`} value={contestation.reason_cancellation || ''} onChange={(e) => handleContestationChange(e, i)}>{contestation.reason_cancellation}</textarea>
+                                            </div>
+                                        </div>
+                                        <div className="modal-footer">
+                                            <input type="button" className="btn btn-dark" onClick={()=>handleRemoveContestation(contestation)} defaultValue="Concluir" />
+                                            <input type="button" className="btn btn-danger" id={`cancelButton${contestation.id}`} data-dismiss="modal" defaultValue="Voltar" />                  
+                                        </div>
+                                        </div>
+                                    </div>
+                        </div>
                                 </div>
                             </div>
                         </td>
-                    </tr>                     
+                    </tr>                  
                 ))}
                 </tbody>
             </table>
