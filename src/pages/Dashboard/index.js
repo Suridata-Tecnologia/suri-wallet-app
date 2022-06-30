@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './styles.css';
 
 import api from '../../services/api';
-
+import PolicyTerm from '../../components/PolicyTerm';
 import Menu from '../../components/Menu';
 
 const Dashboard = (props) => {
@@ -53,6 +53,7 @@ const Dashboard = (props) => {
 
     return (
         <>
+        {localStorage.getItem('rules') !== 'corretor' && localStorage.getItem('pts') === 'null' ? <PolicyTerm />: <div /> }
         <ToastContainer /> 
         <Menu /> 
         <div className="custom-container"> 
