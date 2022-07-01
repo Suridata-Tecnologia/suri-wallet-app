@@ -260,7 +260,7 @@ const ContestationsForm = (props) => {
                     <div className="mb-3 row">
                         <label className="form-label col-form-label col-sm-2">Descrição</label>
                         <div className="col-sm-10">
-                            {currentUser && (currentUser.id === localStorage.getItem('uuid') || localStorage.getItem('rules') === 'titular') ? 
+                            {currentUser && (localStorage.getItem('rules') === 'titular' || localStorage.getItem('rules') === 'beneficiario') ? 
                                 <textarea 
                                 placeholder="Descrição" 
                                 className="form-control" 
