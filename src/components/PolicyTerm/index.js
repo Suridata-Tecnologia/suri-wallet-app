@@ -41,7 +41,7 @@ const PolicyTerm = () => {
                         <h5 className="modal-title" id="PolicyTermLabel">Política de privacidade</h5>
                         <span type="button" id="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">&times;</span>
                     </div>
-                    <div className="modal-body" style={{ height:"700px", overflowY: "scroll", overflow: "hidden" }}>
+                    <div className="modal-body" style={{ height:"700px", overflowY: "scroll", overflowX: "hidden" }}>
                         Esta política é válida a partir de Março de 2022.
                         <br/>
                         <br/>
