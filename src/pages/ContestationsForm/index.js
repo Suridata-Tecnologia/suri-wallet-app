@@ -12,7 +12,24 @@ import Menu from '../../components/Menu';
 
 const ContestationsForm = (props) => {
     const [ currentUser, setCurrentUser ] = useState();
-    const [ currentContestation, setCurrentContestation ] = useState();
+    const [ currentContestation, setCurrentContestation ] = useState({
+        "id": "",
+        "utilizacao_code": "",
+        "description": "",
+        "params": "",
+        "status": "",
+        "status_feedback": null,
+        "feedback": null,
+        "created_at": "",
+        "updated_at": "",
+        "user_id": "",
+        "accountAccess": null,
+        "reason_cancellation": null,
+        "name": "",
+        "cpf": "",
+        "email": null,
+        "phone": ""
+    });
     const [ previousStatus, setPreviousStatus ] = useState();
     const [op, setOp] = useState(false);
     
@@ -53,10 +70,12 @@ const ContestationsForm = (props) => {
         async function handleContestations(){
             await api
             .get(`/contestations/search/${utilizacao_code}`)
-            .then((response) => {        
-                if(response.data.length > 0){ setOp(true) } 
-                setCurrentContestation(response.data[0]);
-                setPreviousStatus(response.data[0].status);
+            .then((response) => {      
+                if(response.data.length > 0){ 
+                    setOp(true);
+                    setPreviousStatus(response.data[0].status);
+                    setCurrentContestation(response.data[0]);   
+                }                              
             })
             .catch((err) => {
                 notifyWarn(err.response.data.message);
@@ -89,15 +108,16 @@ const ContestationsForm = (props) => {
                 notifyWarn('Contestação já cadastrada!');
                 return;
             }
-            await api.post(`/contestations`, data)
-            .then((response) => {            
-                notify('Contestação cadastrada!');
-                handleHistory(response.data);  
-                setCurrentContestation(response.data);
-            })
-            .catch((err) => {
-                notifyWarn(err.response.data.message);
-            });
+            else{
+                await api.post(`/contestations`, data)
+                .then((response) => {            
+                    notify('Contestação cadastrada!');
+                    handleHistory(response.data);  
+                })
+                .catch((err) => {
+                    notifyWarn(err.response.data.message);
+                });
+            }
         }
         else{
             data['previous_status'] = previousStatus;
@@ -127,6 +147,7 @@ const ContestationsForm = (props) => {
 
     function handleDescription(e){
         const { value } = e.target;
+
         let list = { ...currentContestation };
         list.description = value;
         setCurrentContestation(list);
@@ -212,26 +233,26 @@ const ContestationsForm = (props) => {
                     <div className="mb-3 row">
                         <label className="form-label col-form-label col-sm-2">Status</label>
                         <div className="col-sm-10">
-                            <select className="form-select" value={currentContestation && currentContestation.status} disabled={localStorage.getItem('rules') === "corretor" ? false: true} onChange={handleStatus} aria-label="Default select">
-                                <option selected={currentContestation && (currentContestation.status === "Não iniciado") ? 'selected' : false}>Não iniciado</option>
-                                <option selected={currentContestation && (currentContestation.status === "Em andamento") ? 'selected' : false}>Em andamento</option>
-                                <option selected={currentContestation && (currentContestation.status === "Concluido") ? 'selected' : false}>Concluido</option>
+                            <select className="form-select" value={currentContestation.status} disabled={localStorage.getItem('rules') === "corretor" ? false: true} onChange={handleStatus} aria-label="Default select">
+                                <option value="Não iniciado">Não iniciado</option>
+                                <option value="Em andamento">Em andamento</option>
+                                <option value="Concluido">Concluido</option>
                             </select>
                         </div>
                     </div>   
-                    {currentContestation && currentContestation.status === "Concluido" ?
+                    {currentContestation.status === "Concluido" ?
                         <div className="mb-3 row">
                             <label className="form-label col-form-label col-sm-2">Status - feedback</label>
                             <div className="col-sm-4">
                                 <select className="form-select" value={currentContestation.status_feedback} disabled={localStorage.getItem('rules') === "corretor" ? false: true} onChange={handleStatusFeedback} aria-label="Default select">
-                                    <option selected={currentContestation.status_feedback === "Aceito" ? 'selected' : false}>Aceito</option>
-                                    <option selected={currentContestation.status_feedback === "Não aceito" ? 'selected' : false}>Não aceito</option>
+                                    <option selected="Aceito">Aceito</option>
+                                    <option selected="Não aceito">Não aceito</option>
                                 </select>
                             </div>
                     
                             <label className="form-label col-form-label col-sm-2">Feedback</label>
                             <div className="col-sm-4">
-                                <textarea placeholder="Descrição" className="form-control" readOnly={localStorage.getItem('rules') === "corretor" ? false: true} value={currentContestation && currentContestation.feedback} onChange={handleFeedback}>{currentContestation && currentContestation.feedback}</textarea>
+                                <textarea placeholder="Descrição" className="form-control" readOnly={localStorage.getItem('rules') === "corretor" ? false: true} value={currentContestation.feedback} onChange={handleFeedback}>{currentContestation.feedback}</textarea>
                             </div>
                         </div> 
                         : ''
@@ -240,15 +261,21 @@ const ContestationsForm = (props) => {
                         <label className="form-label col-form-label col-sm-2">Descrição</label>
                         <div className="col-sm-10">
                             {currentUser && currentUser.id === localStorage.getItem('uuid') ? 
-                            <textarea placeholder="Descrição" className="form-control" value={currentContestation && currentContestation.description} onChange={handleDescription}>{currentContestation && currentContestation.description}</textarea>
+                                <textarea 
+                                placeholder="Descrição" 
+                                className="form-control" 
+                                value={currentContestation.description ? currentContestation.description : ''} 
+                                onChange={handleDescription}>
+                                    {currentContestation.description ? currentContestation.description : ''}
+                                </textarea>
                             : 
-                            <textarea placeholder="Descrição" className="form-control" readOnly value={currentContestation && currentContestation.description}>{currentContestation && currentContestation.description ? currentContestation.description : ''}</textarea>
+                            <textarea placeholder="Descrição" className="form-control" readOnly value={currentContestation.description}>{currentContestation.description ? currentContestation.description : ''}</textarea>
                             }
                             
                         </div>
                     </div>
                     <div style={{ color: "#555", fontSize: "12px", display: 'flex' }}>                        
-                        <input type = "checkbox" id="allowAccountAccess" name="allowAccountAccess" onClick={handleAccountAccess} checked={currentContestation && currentContestation.accountAccess === 1} />
+                        <input type = "checkbox" id="allowAccountAccess" name="allowAccountAccess" onChange={handleAccountAccess} checked={currentContestation.accountAccess === 1} />
                         <label style={{ marginLeft:"10px" }} htmlFor="allowAccountAccess">
                             Em observância à Lei nº. 13.709/18 – Lei Geral de Proteção de Dados Pessoais e demais normativas aplicáveis sobre proteção de Dados Pessoais, manifesto-me de forma informada, livre, expressa e consciente, no sentido de autorizar a corretora Sciath a realizar a análise necessária junto a operadora de saúde para esclarecer a contestação que estou encaminhando sobre a utilização do plano de saúde acima
                         </ label>                    
@@ -256,7 +283,7 @@ const ContestationsForm = (props) => {
                     <hr />
                     <div role="toolbar" className="mb-3 row">
                         <div className="buttons">
-                            <button type="submit" className="btn btn-success" disabled={currentContestation && currentContestation.accountAccess === 1?false:true} >Salvar</button>
+                            <button type="submit" className="btn btn-success" disabled={currentContestation.accountAccess === 1?false:true} >Salvar</button>
                             <button type="button" className="btn btn-danger" style={{marginRight: '10px'}} onClick={ () => navigate(-1) }>Voltar</button>                        
                         </div>
                     </div>
