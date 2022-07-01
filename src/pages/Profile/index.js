@@ -29,7 +29,7 @@ const Profile = (props) => {
             .then((response) => {            
                 setCurrentUser(response.data);
                 if(response.data.email === null) setFirstChannel('email');
-                if(response.data.phone === null) setFirstChannel('phone');
+                else if(response.data.phone === null) setFirstChannel('phone');
                 else setFirstChannel('');
             })
             .catch((err) => {
@@ -38,7 +38,7 @@ const Profile = (props) => {
         }
 
         handleBeneficiaries();      
-    }, [user_id]);
+    }, [user_id, firstChannel]);
 
     async function submitForm(e){
         e.preventDefault();
