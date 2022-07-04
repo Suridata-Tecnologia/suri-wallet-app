@@ -120,7 +120,7 @@ const Contestations = (props) => {
                     <button className="btn btn-primary" type="button" onClick={handleSearch}><FaSearch />Buscar</button>
                 </div>
             </div>
-            <table className="table table-striped table-bordered table-hover">
+            <table className="table table-striped table-bordered table-hover" style={{ fontSize: '12px' }}>
                 <thead>
                     <tr>
                         <th>Empresa</th> 
