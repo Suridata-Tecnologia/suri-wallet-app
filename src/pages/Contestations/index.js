@@ -49,7 +49,11 @@ const Contestations = (props) => {
     }
 
     async function handleSearch(){
-        const response = await api.get(`/contestations/search/${utiCode}`)
+        const data = {
+            health_id: localStorage.getItem('hb_id'),
+            term: utiCode
+        }
+        const response = await api.post(`/contestations/search/`, data)
         if(!response){
             notifyWarn("Falhar ao buscar beneficiário");
             return;
@@ -93,7 +97,7 @@ const Contestations = (props) => {
             <h1>Lista de contestações</h1>
             <hr />
             <div className="input-group mb-3">
-                <input type="text" className="form-control" placeholder="Buscar por código de utilização" onChange={handleUtiCode} value={utiCode || ''} aria-label="Buscar por código de utilização" aria-describedby="Buscar por código de utilização" />
+                <input type="text" className="form-control" placeholder="Buscar por nome ou status" onChange={handleUtiCode} value={utiCode || ''} aria-label="Buscar por nome ou status" aria-describedby="Buscar por nome ou status" />
                 <div className="input-group-append">
                     <button className="btn btn-primary" type="button" onClick={handleSearch}><FaSearch />Buscar</button>
                 </div>
@@ -101,10 +105,10 @@ const Contestations = (props) => {
             <table className="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>Beneficiário</th>                        
+                        <th>Nome</th>                        
                         <th>Solicitação</th>
-                        <th>Tipo de evento</th>
-                        <th>Descrição serviço</th>
+                        <th>Tipo do atendimento</th>
+                        <th>Descrição do atendimento</th>
                         <th>Email</th>
                         <th>Celular</th>
                         <th>Status</th>

@@ -43,7 +43,6 @@ const Profile = (props) => {
     async function submitForm(e){
         e.preventDefault();
 
-        console.log(currentUser.email);
         if(currentUser.email === null){
             notifyWarn('Digite um e-mail!');
             return;
@@ -123,7 +122,7 @@ const Profile = (props) => {
                         <div className="col-sm-4"><input placeholder="E-mail" name="email" type="text" className="form-control" value={currentUser.email || ''} onChange={handleInputChange} readOnly={firstChannel === 'email' ? false: true} /></div>
 
                         <label className="form-label col-form-label col-sm-2">Celular</label>
-                        <div className="col-sm-4"><input placeholder="Celular" name="phone" type="text" className="form-control" value={currentUser.phone || ''} onChange={handleInputChange} readOnly={firstChannel === 'phone' ? false: true} /></div>
+                        <div className="col-sm-4"><input placeholder="Celular" name="phone" type="text" className="form-control" value={currentUser.phone || ''} onChange={handleInputChange} /></div>
                     </div>
                     <div className="mb-3 row">
                         <label className="form-label col-form-label col-sm-2">Empresa</label>

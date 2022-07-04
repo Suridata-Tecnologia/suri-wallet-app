@@ -129,7 +129,8 @@ const ContestationsForm = (props) => {
             .catch((err) => {
                 notifyWarn(err.response.data.message);
             });
-        }                   
+        }   
+        navigate(-1);                
     }
 
     async function handleHistory(contestation){
@@ -192,11 +193,14 @@ const ContestationsForm = (props) => {
                 <hr />
                 <form className="panel" onSubmit={submitForm}>
                     <div className="mb-3 row">
-                        <label className="form-label col-form-label col-sm-2">Código Usuário/Servico</label>
+                        <label className="form-label col-form-label col-sm-2">Código de identificação</label>
                         <div className="col-sm-4"><input placeholder="Nome" name="name" type="text" className="form-control" readOnly defaultValue={params['CodUsuarioServico']} /></div>
+
+                        <label className="form-label col-form-label col-sm-2">Prestador</label>
+                        <div className="col-sm-4"><input placeholder="Prestador" name="prestador" type="text" className="form-control" readOnly defaultValue={params['Prestador']} /></div>
                     </div>
                     <div className="mb-3 row">
-                        <label className="form-label col-form-label col-sm-2">Nome Beneficiário</label>
+                        <label className="form-label col-form-label col-sm-2">Nome</label>
                         <div className="col-sm-4"><input placeholder="Nome" name="name" type="text" className="form-control" readOnly defaultValue={params['Descricao_Usuario']} /></div>
                    
                         <label className="form-label col-form-label col-sm-2">CPF Titular</label>
@@ -213,7 +217,7 @@ const ContestationsForm = (props) => {
                         <label className="form-label col-form-label col-sm-2">Código Procedimento</label>
                         <div className="col-sm-4"><input placeholder="cd_original" name="cd_original" type="text" className="form-control" readOnly defaultValue={params['cd_original']} /></div>
                    
-                        <label className="form-label col-form-label col-sm-2">Rede Reembolso</label>
+                        <label className="form-label col-form-label col-sm-2">Rede Credenciada/Reembolso</label>
                         <div className="col-sm-4"><input placeholder="Rede_Reembolso" name="Rede_Reembolso" type="text" className="form-control" readOnly defaultValue={params['Rede_Reembolso']} /></div>
                     </div> 
                     <div className="mb-3 row">
@@ -227,7 +231,7 @@ const ContestationsForm = (props) => {
                         <label className="form-label col-form-label col-sm-2">Descrição Procedimento</label>
                         <div className="col-sm-4"><input placeholder="Descricao_Operadora" name="Descricao_Operadora" type="text" className="form-control" readOnly defaultValue={params['Descricao_Operadora']} /></div>
 
-                        <label className="form-label col-form-label col-sm-2">Tipo Evento</label>
+                        <label className="form-label col-form-label col-sm-2">Tipo do Atendimento</label>
                         <div className="col-sm-4"><input placeholder="Tipo_Evento" name="Tipo_Evento" type="text" className="form-control" readOnly defaultValue={params['Tipo_Evento']} /></div>
                     </div>  
                     <div className="mb-3 row">

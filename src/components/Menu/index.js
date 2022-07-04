@@ -22,7 +22,7 @@ const Menu = (props) => {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav mr-auto">
                 <li className="nav-item active">
-                    <label className="nav-link" onClick={() => {}}>Inicio</label>
+                    <label className="nav-link" onClick={() => {}}>Início</label>
                 </li>
 
                 {localStorage.getItem('rules') !== 'corretor' && 

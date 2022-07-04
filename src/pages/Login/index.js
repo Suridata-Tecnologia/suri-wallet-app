@@ -14,7 +14,7 @@ const Login = (props) => {
     const [ code, setCode ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ beneficiary, setBeneficiary ] = useState(null);
-    const [ channel, setChannel ] = useState('');
+    const [ channel, setChannel ] = useState('email');
     const [ contact, setContact ] = useState('');
 
     const { stage } = props;
@@ -203,12 +203,8 @@ const Login = (props) => {
                                 }
                                 {stage === "2" &&                                 
                                     <>
-                                        <label className="title">Escolha o canal:</label>
-                                        <div className="btn-group" role="group" aria-label="Basic outlined example">
-                                            <button type="button" className="btn btn-outline-info" value="email" onClick={handleChannel}>Email</button>                                            
-                                            <button type="button" className="btn btn-outline-info" value="sms" onClick={handleChannel}>SMS</button>
-                                        </div>
-                                        {channel !== '' && <input type="text" className="form-control input-group-text" style={{ marginTop: '10px' }} value={contact} onChange={handleContact} placeholder={`${channel === 'sms' ? '+5511999999999' : 'email@email.com.br'}`} />}
+                                        <label className="title">Digite o e-mail:</label>
+                                        <input type="text" className="form-control input-group-text" style={{ marginTop: '10px' }} value={contact} onChange={handleContact} placeholder={`${channel === 'sms' ? '+5511999999999' : 'email@email.com.br'}`} />
                                     </>
                                 }   
                                 {stage === "3" &&                                 
