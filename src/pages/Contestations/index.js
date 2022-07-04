@@ -26,8 +26,32 @@ const Contestations = (props) => {
         async function findAllContestations(){
             var endpoint = '';
             
-            if(user_id){ endpoint = `/contestations/${user_id}` }
-            else{ endpoint = `/contestations/find/${localStorage.getItem('hb_id')}` }
+            if(user_id){ 
+                await api
+                .get(`/contestations/${user_id}`)
+                .then((response) => {       
+                    setContestations(response.data);
+                })
+                .catch((err) => {
+                    notifyWarn(err.response.data.message);
+                });
+            }
+            else{ 
+                const data = {
+                    health_id: localStorage.getItem('hb_id'),
+                    user_id: localStorage.getItem('uuid'), 
+                    rules: localStorage.getItem('rules')
+                };
+
+                await api
+                .get(`/contestations/find`, data)
+                .then((response) => {       
+                    setContestations(response.data);
+                })
+                .catch((err) => {
+                    notifyWarn(err.response.data.message);
+                });
+            }
 
             await api
             .get(endpoint)
@@ -51,7 +75,10 @@ const Contestations = (props) => {
     async function handleSearch(){
         const data = {
             health_id: localStorage.getItem('hb_id'),
-            term: utiCode
+            user_id: localStorage.getItem('uuid'), 
+            rules: localStorage.getItem('rules'),
+            term: utiCode,
+            
         }
         const response = await api.post(`/contestations/search/`, data)
         if(!response){
