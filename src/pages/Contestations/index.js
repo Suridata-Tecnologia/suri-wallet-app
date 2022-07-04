@@ -132,6 +132,7 @@ const Contestations = (props) => {
             <table className="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
+                        <th>Empresa</th> 
                         <th>Nome</th>                        
                         <th>Solicitação</th>
                         <th>Tipo do atendimento</th>
@@ -145,6 +146,7 @@ const Contestations = (props) => {
                 <tbody>
                 {contestations.map((contestation, i) => (
                     <tr key={contestation.id}>
+                        <th scope="row">{contestation.company}</th>
                         <th scope="row">{contestation.name}</th>                        
                         <td>{contestation.description && contestation.description.substring(0, 20)}</td>
                         <td>{JSON.parse(contestation.params)['Tipo_Evento']}</td>
