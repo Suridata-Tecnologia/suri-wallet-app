@@ -52,15 +52,6 @@ const Contestations = (props) => {
                     notifyWarn(err.response.data.message);
                 });
             }
-
-            await api
-            .get(endpoint)
-            .then((response) => {       
-                setContestations(response.data);
-            })
-            .catch((err) => {
-                notifyWarn(err.response.data.message);
-            });
         }
 
         findAllContestations();      
