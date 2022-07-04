@@ -68,14 +68,8 @@ const ContestationsForm = (props) => {
         handleBeneficiaries();      
 
         async function handleContestations(){
-            const data = {
-                health_id: localStorage.getItem('hb_id'),
-                user_id: localStorage.getItem('uuid'),
-                rules: localStorage.getItem('rules'),
-                term: utilizacao_code
-            };
             await api
-            .post(`/contestations/search`, data)
+            .get(`/contestations/findbycode/${utilizacao_code}`)
             .then((response) => {      
                 if(response.data.length > 0){ 
                     setOp(true);
@@ -109,14 +103,7 @@ const ContestationsForm = (props) => {
         };
 
         if(!op){
-            const data = {
-                health_id: localStorage.getItem('hb_id'),
-                user_id: localStorage.getItem('uuid'),
-                rules: localStorage.getItem('rules'),
-                term: utilizacao_code
-            };
-
-            const hasContestation = await api.post(`/contestations/search`, data)
+            const hasContestation = await api.get(`/contestations/findbycode/${utilizacao_code}`)
             if(hasContestation.data.length > 0){
                 notifyWarn('Contestação já cadastrada!');
                 return;
