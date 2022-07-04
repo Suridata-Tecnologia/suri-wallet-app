@@ -130,6 +130,7 @@ const Contestations = (props) => {
                         <th>Descrição do atendimento</th>
                         <th>Email</th>
                         <th>Celular</th>
+                        <th>Alterado por</th>
                         <th>Status</th>
                         <th>Ações</th>
                     </tr>
@@ -143,7 +144,8 @@ const Contestations = (props) => {
                         <td>{JSON.parse(contestation.params)['Tipo_Evento']}</td>
                         <td>{JSON.parse(contestation.params)['Descricao_Operadora']}</td>
                         <th>{contestation.email}</th> 
-                        <th>{contestation.phone}</th> 
+                        <th>{contestation.phone}</th>
+                        <th>{contestation.account}</th>  
                         <th>{contestation.status}</th>    
                         <td>
                             <div className="btn-toolbar justify-content-between" role="toolbar" aria-label="with button groups">
