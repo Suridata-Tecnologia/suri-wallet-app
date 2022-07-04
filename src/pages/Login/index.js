@@ -203,8 +203,9 @@ const Login = (props) => {
                                 }
                                 {stage === "2" &&                                 
                                     <>
-                                        <label className="title">Digite o e-mail:</label>
-                                        <input type="text" className="form-control input-group-text" style={{ marginTop: '10px' }} value={contact} onChange={handleContact} placeholder={`${channel === 'sms' ? '+5511999999999' : 'email@email.com.br'}`} />
+                                        <label className="title" style={{ width: '100%' }}>Digite o e-mail:</label>
+                                        
+                                        <input type="text" className="form-control input-group-text" style={{ marginTop: '10px',  width: '100%' }} value={contact} onChange={handleContact} placeholder={`${channel === 'sms' ? '+5511999999999' : 'email@email.com.br'}`} />
                                     </>
                                 }   
                                 {stage === "3" &&                                 
