@@ -44,7 +44,7 @@ const Contestations = (props) => {
                 };
 
                 await api
-                .get(`/contestations/find`, data)
+                .post(`/contestations/find`, data)
                 .then((response) => {       
                     setContestations(response.data);
                 })
