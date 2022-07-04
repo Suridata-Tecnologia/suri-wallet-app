@@ -14,7 +14,7 @@ const Menu = (props) => {
     return (
         <>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-            <img src={`https://portal.suridata.com.br/img/storage/${localStorage.getItem('logo') || 'suridata_logo_v4.png'}`} style={{ margin: "5px 10px" }} width="57" height="47" />
+            <img src={`https://portal.suridata.com.br/img/storage/${localStorage.getItem('logo') || 'suridata_logo_v4.png'}`} style={{ margin: "5px 10px" }} width="80" height="47" />
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
