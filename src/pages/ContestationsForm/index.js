@@ -68,8 +68,12 @@ const ContestationsForm = (props) => {
         handleBeneficiaries();      
 
         async function handleContestations(){
+            const data = {
+                health_id: localStorage.getItem('hb_id'),
+                term: utilizacao_code
+            };
             await api
-            .get(`/contestations/search/${utilizacao_code}`)
+            .post(`/contestations/search`, data)
             .then((response) => {      
                 if(response.data.length > 0){ 
                     setOp(true);
