@@ -150,6 +150,7 @@ const ContestationsForm = (props) => {
         const data = {
             contestation_id: contestation.id,
             contestation_status: contestation.status,
+            last_updated_for: localStorage.getItem('uuid')
         }
         await api.post(`/contestations/history`, data)
         .then((response) => {            
