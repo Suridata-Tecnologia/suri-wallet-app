@@ -120,7 +120,6 @@ const Login = (props) => {
         }
         else if(stage === "2"){
             if(beneficiary && beneficiary.is_first_access){
-                console.log(channel);
                 if(channel === 'sms'){
                     if(contact.length < 13){
                         notifyWarn("Verifique o celular (5511999999999)");
