@@ -119,7 +119,17 @@ const Login = (props) => {
             }
         }
         else if(stage === "2"){
-            if(beneficiary && beneficiary.is_first_access) await sendConfirmAccountCode();
+            if(beneficiary && beneficiary.is_first_access){
+                console.log(channel);
+                if(channel === 'sms'){
+                    if(contact.length < 13){
+                        notifyWarn("Verifique o celular (5511999999999)");
+                        return
+                    }
+                }
+
+                await sendConfirmAccountCode();
+            }
             else navigate('/login');
         }
         else if(stage === "3"){
@@ -147,7 +157,6 @@ const Login = (props) => {
 
     function handleContact(e){
         const { value } = e.target;
-
         setContact(value);
     }
     
