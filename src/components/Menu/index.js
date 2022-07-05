@@ -21,15 +21,6 @@ const Menu = (props) => {
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav mr-auto">
-                <li className="nav-item active">
-                    <label className="nav-link" onClick={() => {}}>Início</label>
-                </li>
-
-                {localStorage.getItem('rules') !== 'corretor' && 
-                    <li className="nav-item active">
-                        <label className="nav-link" onClick={() => navigate(`/profile/${localStorage.getItem('uuid')}`)}>Perfil</label>
-                    </li>
-                }
 
                 {localStorage.getItem('rules') === 'corretor' && 
                     <li className="nav-item">
@@ -37,18 +28,23 @@ const Menu = (props) => {
                     </li>
                 }
 
-                {localStorage.getItem('rules') === 'titular' || localStorage.getItem('rules') === 'beneficiario' ? 
+                {localStorage.getItem('rules') !== 'corretor' ? 
                     <>
                         <li className="nav-item">
-                            <label className="nav-link" onClick={() => navigate(`/dashboard/${user_id}`)}>Utilização</label>
+                            <label className="nav-link" onClick={() => navigate(`/dashboard/${user_id}`)}>Meus Atendimentos</label>
                         </li>
                         
                         <li className="nav-item">
                             <label className="nav-link" onClick={() => navigate(`/contestations/${user_id}`)}>Contestações</label>
                         </li>
+
+                        <li className="nav-item active">
+                        <label className="nav-link" onClick={() => navigate(`/profile/${localStorage.getItem('uuid')}`)}>Perfil</label>
+                    </li>
                     </>
                     : ''
                 }
+
                 <li className="nav-item active">
                     <label className="nav-link" onClick={() => { navigate(localStorage.getItem('rules') === 'corretor' ? '/admin-login' : '/' ); logout(); }}>Sair</label>
                 </li>

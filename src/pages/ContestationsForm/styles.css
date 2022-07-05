@@ -4,3 +4,6 @@
     display: flex;
     gap: 5px;
 }
+.btn{
+    border-radius: 0!important;
+}

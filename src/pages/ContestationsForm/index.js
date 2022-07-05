@@ -113,6 +113,7 @@ const ContestationsForm = (props) => {
                 .then((response) => {            
                     notify('Contestação cadastrada!');
                     handleHistory(response.data);  
+                    window.close();
                 })
                 .catch((err) => {
                     notifyWarn(err.response.data.message);
@@ -238,7 +239,12 @@ const ContestationsForm = (props) => {
                     <div className="mb-3 row">
                         <label className="form-label col-form-label col-sm-2">Status</label>
                         <div className="col-sm-10">
-                            <select className="form-select" value={currentContestation.status} disabled={localStorage.getItem('rules') === "corretor" ? false: true} onChange={handleStatus} aria-label="Default select">
+                            <select 
+                            className="form-select" 
+                            value={currentContestation.status} 
+                            disabled={localStorage.getItem('rules') === "corretor" && (currentContestation.status !== 'Concluido' && currentContestation.status !== 'Cancelada') ? false: true} 
+                            onChange={handleStatus} 
+                            aria-label="Default select">
                                 <option value="Não iniciado">Não iniciado</option>
                                 <option value="Em andamento">Em andamento</option>
                                 <option value="Concluido">Concluido</option>
@@ -265,7 +271,10 @@ const ContestationsForm = (props) => {
                     <div className="mb-3 row">
                         <label className="form-label col-form-label col-sm-2">Descrição</label>
                         <div className="col-sm-10">
-                            {currentUser && (localStorage.getItem('rules') === 'titular' || localStorage.getItem('rules') === 'beneficiario') ? 
+                            {currentUser && 
+                            (localStorage.getItem('rules') === 'titular' || localStorage.getItem('rules') === 'beneficiario') &&
+                            (currentContestation.status !== 'Concluido' && currentContestation.status !== 'Cancelada')
+                            ? 
                                 <textarea 
                                 placeholder="Descrição" 
                                 className="form-control" 
@@ -288,7 +297,10 @@ const ContestationsForm = (props) => {
                     <hr />
                     <div role="toolbar" className="mb-3 row">
                         <div className="buttons">
-                            <button type="submit" className="btn btn-success" disabled={currentContestation.accountAccess === 1?false:true} >Salvar</button>
+                            {currentContestation.status !== 'Concluido' && currentContestation.status !== 'Cancelada' ?
+                                <button type="submit" className="btn btn-success" disabled={currentContestation.accountAccess === 1?false:true} >Salvar</button>
+                                : ''
+                            }
                             <button type="button" className="btn btn-danger" style={{marginRight: '10px'}} onClick={ () => navigate(-1) }>Voltar</button>                        
                         </div>
                     </div>

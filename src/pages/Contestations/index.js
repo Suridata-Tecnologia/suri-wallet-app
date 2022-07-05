@@ -106,6 +106,11 @@ const Contestations = (props) => {
         setContestations(list);        
     }
 
+    function formatDMY(d) {
+        const date = d.slice(0,10).split('-');
+        return `${date[2]}/${date[1]}/${date[0]}`
+    }
+
     return (
         <>
         <ToastContainer /> 
@@ -128,10 +133,9 @@ const Contestations = (props) => {
                         <th>Solicitação</th>
                         <th>Tipo do atendimento</th>
                         <th>Descrição do atendimento</th>
-                        <th>Email</th>
-                        <th>Celular</th>
                         <th>Alterado por</th>
                         <th>Status</th>
+                        <th>Criado em</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -143,15 +147,19 @@ const Contestations = (props) => {
                         <td>{contestation.description && contestation.description.substring(0, 20)}</td>
                         <td>{JSON.parse(contestation.params)['Tipo_Evento']}</td>
                         <td>{JSON.parse(contestation.params)['Descricao_Operadora']}</td>
-                        <th>{contestation.email}</th> 
-                        <th>{contestation.phone}</th>
                         <th>{contestation.account}</th>  
                         <th>{contestation.status}</th>    
-                        <td>
+                        <th>{formatDMY(contestation.created_at)}</th>   
+                        <td>                           
                             <div className="btn-toolbar justify-content-between" role="toolbar" aria-label="with button groups">
                                 <div className="btn-group" role="group" aria-label="First group">
                                     <button type="button" className="btn btn-dark" onClick={() => navigate(`/contestations/form/${contestation.cpf}_${contestation.utilizacao_code}?params=${JSON.stringify(contestation.params).replaceAll("\\", "")}`)} title="Contestação"><FaEdit /></button>
-                                    { localStorage.getItem('uuid') === contestation.user_id && <button type="button" className="btn btn-danger"  data-toggle="modal" data-target={`#cancelModal${contestation.id}`} onClick={() => {}} title="Cancelar contestação"><FaTrash /></button>}
+                                    {contestation.status !== 'Cancelada' &&  contestation.status !== 'Concluido' && localStorage.getItem('uuid') === contestation.user_id ? 
+                                        <button type="button" className="btn btn-danger"  data-toggle="modal" data-target={`#cancelModal${contestation.id}`} onClick={() => {}} title="Cancelar contestação"><FaTrash /></button>
+                                        :
+                                        ''
+                                    }
+                                    
                                     <div className="modal fade" id={`cancelModal${contestation.id}`} tabIndex="-1" role="dialog" aria-labelledby={`cancelModal${contestation.id}`} aria-hidden="true">
                                         <div className="modal-dialog" role="document">
                                             <div className="modal-content">

@@ -3,6 +3,10 @@
     margin: 10px 15px;
 }
 
+.nav-link{
+    cursor: pointer;
+}
+
 @media screen and (max-width: 900px) {    
     .logo{
         margin: 3px 5px;
