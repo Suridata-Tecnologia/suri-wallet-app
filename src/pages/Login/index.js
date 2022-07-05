@@ -29,24 +29,24 @@ const Login = (props) => {
     }, [beneficiary]);
 
     useEffect(()=>{
-        if(cpf && cpf.length >= 11){
-            async function findBeneficiaryData(){
-                await api
-                .get(`/beneficiaries/search/${cpf}`)
-                .then((response) => {         
-                    setBeneficiary(response.data);
-                    if(response.data.is_first_access) navigate('/choose-channel');
-                    else navigate('/login');
-                    
-                })
-                .catch((err) => {
-                    notifyWarn(err.response.data.message);
-                });
-            }
-
+        if(cpf && cpf.length >= 11){            
             findBeneficiaryData();
         }        
     }, [cpf]);
+
+    async function findBeneficiaryData(){
+        await api
+        .get(`/beneficiaries/search/${cpf}`)
+        .then((response) => {       
+            setBeneficiary(response.data);
+            if(response.data.is_first_access) navigate('/choose-channel');
+            else navigate('/login');
+            
+        })
+        .catch((err) => {
+            notifyWarn(err.response.data.message);
+        });
+    }
 
     async function autheticate(){
         const data = { cpf, password }
@@ -117,6 +117,7 @@ const Login = (props) => {
                 notifyWarn("Verifique o CPF");
                 return
             }
+            await findBeneficiaryData();
         }
         else if(stage === "2"){
             if(beneficiary && beneficiary.is_first_access){
@@ -203,7 +204,8 @@ const Login = (props) => {
                                 }
                                 {stage === "2" &&                                 
                                     <>
-                                        <label className="title" style={{ width: '100%' }}>Digite o e-mail:</label>
+                                        <h5 className="title" style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>Confirmação de conta</h5>
+                                        <label className="title" style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>Digite seu e-mail:</label>
                                         
                                         <input type="text" className="form-control input-group-text" style={{ marginTop: '10px',  width: '100%' }} value={contact} onChange={handleContact} placeholder={`${channel === 'sms' ? '+5511999999999' : 'email@email.com.br'}`} />
                                     </>
