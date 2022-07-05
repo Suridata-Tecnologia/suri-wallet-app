@@ -271,7 +271,7 @@ const ContestationsForm = (props) => {
                     <div className="mb-3 row">
                         <label className="form-label col-form-label col-sm-2">Descrição</label>
                         <div className="col-sm-10">
-                            {currentUser && 
+                            {currentUser &&  localStorage.getItem('rules') &&
                             (localStorage.getItem('rules') === 'titular' || localStorage.getItem('rules') === 'beneficiario') &&
                             (currentContestation.status !== 'Concluido' && currentContestation.status !== 'Cancelada')
                             ? 
@@ -297,7 +297,7 @@ const ContestationsForm = (props) => {
                     <hr />
                     <div role="toolbar" className="mb-3 row">
                         <div className="buttons">
-                            {currentContestation.status !== 'Concluido' && currentContestation.status !== 'Cancelada' ?
+                            {currentContestation && (currentContestation.status !== 'Concluido' && currentContestation.status !== 'Cancelada') ?
                                 <button type="submit" className="btn btn-success" disabled={currentContestation.accountAccess === 1?false:true} >Salvar</button>
                                 : ''
                             }
