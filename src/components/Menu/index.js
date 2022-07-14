@@ -6,7 +6,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import { logout } from "../../services/auth";
 import './styles.css';
 
+import { menuLink } from '../../utils/language';
+
 const Menu = (props) => {
+    const language = localStorage.getItem('language');
+
     const navigate = useNavigate(); 
 
     const user_id = localStorage.getItem('uuid');
@@ -24,29 +28,34 @@ const Menu = (props) => {
 
                 {localStorage.getItem('rules') === 'corretor' && 
                     <li className="nav-item">
-                        <label className="nav-link" onClick={() => navigate(`/contestations`)}>Contestações</label>
+                        <label className="nav-link" onClick={() => navigate(`/contestations`)}>{menuLink[language]['contestacoes']}</label>
                     </li>
                 }
 
                 {localStorage.getItem('rules') !== 'corretor' ? 
                     <>
                         <li className="nav-item">
-                            <label className="nav-link" onClick={() => navigate(`/dashboard/${user_id}`)}>Meus Atendimentos</label>
+                            <label className="nav-link" onClick={() => navigate(`/dashboard/${user_id}`)}>{menuLink[language]['meus_atendimentos']}</label>
                         </li>
                         
                         <li className="nav-item">
-                            <label className="nav-link" onClick={() => navigate(`/contestations/${user_id}`)}>Contestações</label>
+                            <label className="nav-link" onClick={() => navigate(`/contestations/${user_id}`)}>{menuLink[language]['contestacoes']}</label>
                         </li>
 
                         <li className="nav-item active">
-                        <label className="nav-link" onClick={() => navigate(`/profile/${localStorage.getItem('uuid')}`)}>Perfil</label>
+                        <label className="nav-link" onClick={() => navigate(`/profile/${localStorage.getItem('uuid')}`)}>{menuLink[language]['perfil']}</label>
                     </li>
                     </>
                     : ''
                 }
 
                 <li className="nav-item active">
-                    <label className="nav-link" onClick={() => { navigate(localStorage.getItem('rules') === 'corretor' ? '/admin-login' : '/' ); logout(); }}>Sair</label>
+                    <label 
+                    className="nav-link" 
+                    onClick={() => 
+                    { navigate(localStorage.getItem('rules') === 'corretor' ? 
+                    `/admin-login?lang=${localStorage.getItem('language')}` 
+                    : `/?lang=${localStorage.getItem('language')}` ); logout(); }}>{menuLink[language]['sair']}</label>
                 </li>
                 </ul>                
             </div>

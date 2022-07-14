@@ -9,6 +9,13 @@ import './styles.css';
 import api from '../../services/api';
 
 import Menu from '../../components/Menu';
+import { 
+    formContestationTitle, 
+    formContestationLGPDText, 
+    formButton, 
+    formContestationInputTile,
+    formContestationDropdown1,
+    formContestationDropdown2 } from '../../utils/language';
 
 const ContestationsForm = (props) => {
     const [ currentUser, setCurrentUser ] = useState();
@@ -32,6 +39,8 @@ const ContestationsForm = (props) => {
     });
     const [ previousStatus, setPreviousStatus ] = useState();
     const [op, setOp] = useState(false);
+    
+    const language = localStorage.getItem('language');
     
     const { uti_id } = useParams();
 
@@ -191,53 +200,53 @@ const ContestationsForm = (props) => {
         {currentUser && 
             <div className="container">
                 <br />
-                <h2>Detalhes da contestação</h2>
+                <h2>{formContestationTitle[language]}</h2>
                 <hr />
                 <form className="panel" onSubmit={submitForm}>
                     <div className="mb-3 row">
-                        <label className="form-label col-form-label col-sm-2">Código de identificação</label>
+                        <label className="form-label col-form-label col-sm-2">{formContestationInputTile[language]['codigo_identificacao']}</label>
                         <div className="col-sm-4"><input placeholder="Nome" name="name" type="text" className="form-control" readOnly defaultValue={params['CodUsuarioServico']} /></div>
 
-                        <label className="form-label col-form-label col-sm-2">Prestador</label>
+                        <label className="form-label col-form-label col-sm-2">{formContestationInputTile[language]['prestador']}</label>
                         <div className="col-sm-4"><input placeholder="Prestador" name="prestador" type="text" className="form-control" readOnly defaultValue={params['Prestador']} /></div>
                     </div>
                     <div className="mb-3 row">
-                        <label className="form-label col-form-label col-sm-2">Nome</label>
+                        <label className="form-label col-form-label col-sm-2">{formContestationInputTile[language]['nome']}</label>
                         <div className="col-sm-4"><input placeholder="Nome" name="name" type="text" className="form-control" readOnly defaultValue={params['Descricao_Usuario']} /></div>
                    
-                        <label className="form-label col-form-label col-sm-2">CPF Titular</label>
+                        <label className="form-label col-form-label col-sm-2">{formContestationInputTile[language]['cpf_titular']}</label>
                         <div className="col-sm-4"><input placeholder="Nome" name="name" type="text" className="form-control" readOnly defaultValue={currentUser.cpf_holder} /></div>
                     </div>
                     <div className="mb-3 row">
-                        <label className="form-label col-form-label col-sm-2">E-mail</label>
+                        <label className="form-label col-form-label col-sm-2">{formContestationInputTile[language]['email']}</label>
                         <div className="col-sm-4"><input placeholder="E-mail" name="email" type="text" className="form-control" readOnly defaultValue={currentUser.email} /></div>
                    
-                        <label className="form-label col-form-label col-sm-2">Celular</label>
+                        <label className="form-label col-form-label col-sm-2">{formContestationInputTile[language]['celular']}</label>
                         <div className="col-sm-4"><input placeholder="Celular" name="phone" type="text" className="form-control" readOnly defaultValue={currentUser.phone} /></div>
                     </div>
                     <div className="mb-3 row">
-                        <label className="form-label col-form-label col-sm-2">Código Procedimento</label>
+                        <label className="form-label col-form-label col-sm-2">{formContestationInputTile[language]['codigo_procedimento']}</label>
                         <div className="col-sm-4"><input placeholder="cd_original" name="cd_original" type="text" className="form-control" readOnly defaultValue={params['cd_original']} /></div>
                    
-                        <label className="form-label col-form-label col-sm-2">Rede Credenciada/Reembolso</label>
+                        <label className="form-label col-form-label col-sm-2">{formContestationInputTile[language]['rede_cred_reembolso']}</label>
                         <div className="col-sm-4"><input placeholder="Rede_Reembolso" name="Rede_Reembolso" type="text" className="form-control" readOnly defaultValue={params['Rede_Reembolso']} /></div>
                     </div> 
                     <div className="mb-3 row">
-                        <label className="form-label col-form-label col-sm-2">Número da Conta</label>
+                        <label className="form-label col-form-label col-sm-2">{formContestationInputTile[language]['numero_conta']}</label>
                         <div className="col-sm-4"><input placeholder="NumeroConta" name="NumeroConta" type="text" className="form-control" readOnly defaultValue={params['NumeroConta']} /></div>
                    
-                        <label className="form-label col-form-label col-sm-2">Data do Atendimento</label>
+                        <label className="form-label col-form-label col-sm-2">{formContestationInputTile[language]['data_atendimento']}</label>
                         <div className="col-sm-4"><input placeholder="Data_Atendto" name="Data_Atendto" type="text" className="form-control" readOnly defaultValue={params['Data_Atendto']} /></div>
                     </div> 
                     <div className="mb-3 row">
-                        <label className="form-label col-form-label col-sm-2">Descrição Procedimento</label>
+                        <label className="form-label col-form-label col-sm-2">{formContestationInputTile[language]['descricao_procedimento']}</label>
                         <div className="col-sm-4"><input placeholder="Descricao_Operadora" name="Descricao_Operadora" type="text" className="form-control" readOnly defaultValue={params['Descricao_Operadora']} /></div>
 
-                        <label className="form-label col-form-label col-sm-2">Tipo do Atendimento</label>
+                        <label className="form-label col-form-label col-sm-2">{formContestationInputTile[language]['Tipo_atendimento']}</label>
                         <div className="col-sm-4"><input placeholder="Tipo_Evento" name="Tipo_Evento" type="text" className="form-control" readOnly defaultValue={params['Tipo_Evento']} /></div>
                     </div>  
                     <div className="mb-3 row">
-                        <label className="form-label col-form-label col-sm-2">Status</label>
+                        <label className="form-label col-form-label col-sm-2">{formContestationInputTile[language]['status']}</label>
                         <div className="col-sm-10">
                             <select 
                             className="form-select" 
@@ -245,9 +254,9 @@ const ContestationsForm = (props) => {
                             disabled={localStorage.getItem('rules') === "corretor" && (currentContestation.status !== 'Concluido' && currentContestation.status !== 'Cancelada') ? false: true} 
                             onChange={handleStatus} 
                             aria-label="Default select">
-                                <option value="Não iniciado">Não iniciado</option>
-                                <option value="Em andamento">Em andamento</option>
-                                <option value="Concluido">Concluido</option>
+                                <option value="Não iniciado">{formContestationDropdown1[language]['nao_iniciado']}</option>
+                                <option value="Em andamento">{formContestationDropdown1[language]['em_andamento']}</option>
+                                <option value="Concluido">{formContestationDropdown1[language]['concluido']}</option>
                             </select>
                         </div>
                     </div>   
@@ -256,8 +265,8 @@ const ContestationsForm = (props) => {
                             <label className="form-label col-form-label col-sm-2">Status - feedback</label>
                             <div className="col-sm-4">
                                 <select className="form-select" value={currentContestation.status_feedback} disabled={localStorage.getItem('rules') === "corretor" ? false: true} onChange={handleStatusFeedback} aria-label="Default select">
-                                    <option selected="Aceito">Aceito</option>
-                                    <option selected="Não aceito">Não aceito</option>
+                                    <option selected="Aceito">{formContestationDropdown2[language]['aceito']}</option>
+                                    <option selected="Não aceito">{formContestationDropdown2[language]['nao_aceito']}</option>
                                 </select>
                             </div>
                     
@@ -269,7 +278,7 @@ const ContestationsForm = (props) => {
                         : ''
                     }                                 
                     <div className="mb-3 row">
-                        <label className="form-label col-form-label col-sm-2">Descrição</label>
+                        <label className="form-label col-form-label col-sm-2">{formContestationInputTile[language]['descricao']}</label>
                         <div className="col-sm-10">
                             {currentUser &&  localStorage.getItem('rules') &&
                             (localStorage.getItem('rules') === 'titular' || localStorage.getItem('rules') === 'beneficiario') &&
@@ -291,17 +300,17 @@ const ContestationsForm = (props) => {
                     <div style={{ color: "#555", fontSize: "12px", display: 'flex' }}>                        
                         <input type = "checkbox" id="allowAccountAccess" name="allowAccountAccess" onChange={handleAccountAccess} checked={currentContestation.accountAccess === 1} />
                         <label style={{ marginLeft:"10px" }} htmlFor="allowAccountAccess">
-                            Em observância à Lei nº. 13.709/18 – Lei Geral de Proteção de Dados Pessoais e demais normativas aplicáveis sobre proteção de Dados Pessoais, manifesto-me de forma informada, livre, expressa e consciente, no sentido de autorizar a corretora Sciath a realizar a análise necessária junto a operadora de saúde para esclarecer a contestação que estou encaminhando sobre a utilização do plano de saúde acima
+                        {formContestationLGPDText[language]}
                         </ label>                    
                     </div>
                     <hr />
                     <div role="toolbar" className="mb-3 row">
                         <div className="buttons">
                             {currentContestation && (currentContestation.status !== 'Concluido' && currentContestation.status !== 'Cancelada') ?
-                                <button type="submit" className="btn btn-success" disabled={currentContestation.accountAccess === 1?false:true} >Salvar</button>
+                                <button type="submit" className="btn btn-success" disabled={currentContestation.accountAccess === 1?false:true} >{formButton[language]['avancar']}</button>
                                 : ''
                             }
-                            <button type="button" className="btn btn-danger" style={{marginRight: '10px'}} onClick={ () => navigate(-1) }>Voltar</button>                        
+                            <button type="button" className="btn btn-danger" style={{marginRight: '10px'}} onClick={ () => navigate(-1) }>{formButton[language]['voltar']}</button>                        
                         </div>
                     </div>
                 </form>

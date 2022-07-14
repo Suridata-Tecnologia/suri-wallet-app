@@ -8,9 +8,21 @@ import './styles.css';
 import api from '../../services/api';
 import { login, setRules } from "../../services/auth";
 
+import { adminLoginButtonText, adminLoginInputText, adminLoginLinkText, adminLoginTitleText } from '../../utils/language';
+
 const AdminLogin = (props) => {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
+    
+    let language = localStorage.getItem('language');
+    if(language === null){
+        language = 'ptbr'
+    }
+    else{
+        const lang = new URLSearchParams(window.location.search).get('lang'); 
+        language = lang || localStorage.getItem('language');
+    }
+    localStorage.setItem('language', language);
 
     const navigate = useNavigate();   
 
@@ -33,7 +45,7 @@ const AdminLogin = (props) => {
             localStorage.setItem('logo', logo);
             localStorage.setItem('hb_id', health_id); 
             
-            navigate(`/contestations`);
+            navigate(`/contestations?lang=${localStorage.getItem('language')}`)
         })
         .catch((err) => {
             notifyWarn(err.response.data.message);
@@ -59,7 +71,7 @@ const AdminLogin = (props) => {
     }
 
     function handleNavigate(){
-        navigate('/');
+        navigate(`/?lang=${localStorage.getItem('language') || 'ptbr'}`);
     }
     return (
         <>
@@ -74,18 +86,18 @@ const AdminLogin = (props) => {
                         <hr />                        
                         <form onSubmit={handleSubmit}>
                             <div className="form-group" style={{color: "white"}}>
-                                <label htmlFor="email">Email</label>
-                                <input type="email" className="form-control" id="email" onChange={handleEmail} value={email || ''} placeholder="Digite o e-mail" />
+                                <label htmlFor="email">{adminLoginTitleText[language]['email']}</label>
+                                <input type="email" className="form-control" id="email" onChange={handleEmail} value={email || ''} placeholder={adminLoginInputText[language]['email']} />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="password" style={{color: "white"}}>Senha</label>
-                                <input type="password" className="form-control" id="password" onChange={handlePassword} value={password || ''} placeholder="Digite a senha" />
+                                <label htmlFor="password" style={{color: "white"}}>{adminLoginTitleText[language]['password']}</label>
+                                <input type="password" className="form-control" id="password" onChange={handlePassword} value={password || ''} placeholder={adminLoginInputText[language]['password']} />
                             </div>
                             <br />
-                            <button className="btn btn-dark">Entrar</button>
+                            <button className="btn btn-dark">{adminLoginButtonText[language]}</button>
                         </form>
                         <hr/>
-                        <button className="btn btn-link" onClick={handleNavigate} >Logar como beneficiário</button>
+                        <button className="btn btn-link" onClick={handleNavigate} >{adminLoginLinkText[language]}</button>
                     </div>           
                 </div>
             </div>

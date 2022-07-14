@@ -9,12 +9,15 @@ import './styles.css';
 import api from '../../services/api';
 
 import Menu from '../../components/Menu';
+import { profileLink, profileModalTitle, profileTitle, profileModalInputTitle, profileInputTitle, formButton } from '../../utils/language';
 
 const Profile = (props) => {    
     const [ currentUser, setCurrentUser ] = useState();
     const [ password, setPassword ] = useState();
     const [ password1, setPassword1 ] = useState();
     const [ firstChannel, setFirstChannel ] = useState();
+
+    const language = localStorage.getItem('language');
 
     const navigate = useNavigate(); 
 
@@ -100,39 +103,39 @@ const Profile = (props) => {
         {currentUser && 
             <div className="container">
                 <br />
-                <h2>Dados de cadastro</h2>
+                <h2>{profileTitle[language]}</h2>
                 <hr />
                 <form className="panel" onSubmit={submitForm}>
                     <div className="mb-3 row">
-                        <label className="form-label col-form-label col-sm-2">Nome</label>
+                        <label className="form-label col-form-label col-sm-2">{profileInputTitle[language]['nome']}</label>
                         <div className="col-sm-4"><input placeholder="Nome" name="name" type="text" className="form-control" defaultValue={currentUser.name} readOnly /></div>
                         {currentUser.id === localStorage.getItem('uuid') && 
-                            <input className="btn btn-link col-sm-5" data-toggle="modal" data-target="#passModal" defaultValue="Alterar Senha" />
+                            <input className="btn btn-link col-sm-5" data-toggle="modal" data-target="#passModal" defaultValue={profileLink[language]} />
                         }
                     </div>
                     <div className="mb-3 row">
-                        <label className="form-label col-form-label col-sm-2">CPF</label>
+                        <label className="form-label col-form-label col-sm-2">{profileInputTitle[language]['cpf']}</label>
                         <div className="col-sm-4"><input placeholder="00000000000" name="cpf" type="text" className="form-control" defaultValue={currentUser.cpf} readOnly /></div>
 
-                        <label className="form-label col-form-label col-sm-2">CPF Titular</label>
+                        <label className="form-label col-form-label col-sm-2">{profileInputTitle[language]['cpf_titular']}</label>
                         <div className="col-sm-4"><input placeholder="00000000000" name="cpf_holder" type="text" className="form-control" defaultValue={currentUser.cpf_holder} readOnly /></div>
                     </div>
                     <div className="mb-3 row">
-                        <label className="form-label col-form-label col-sm-2">E-mail</label>
+                        <label className="form-label col-form-label col-sm-2">{profileInputTitle[language]['email']}</label>
                         <div className="col-sm-4"><input placeholder="E-mail" name="email" type="text" className="form-control" value={currentUser.email || ''} onChange={handleInputChange} readOnly={firstChannel === 'email' ? false: true} /></div>
 
-                        <label className="form-label col-form-label col-sm-2">Celular</label>
+                        <label className="form-label col-form-label col-sm-2">{profileInputTitle[language]['celular']}</label>
                         <div className="col-sm-4"><input placeholder="Celular" name="phone" type="text" className="form-control" value={currentUser.phone || ''} onChange={handleInputChange} /></div>
                     </div>
                     <div className="mb-3 row">
-                        <label className="form-label col-form-label col-sm-2">Empresa</label>
+                        <label className="form-label col-form-label col-sm-2">{profileInputTitle[language]['empresa']}</label>
                         <div className="col-sm-10"><input placeholder="Empresa" name="company" type="text" className="form-control" defaultValue={currentUser.company} readOnly /></div>
 
                     </div>
                     <div role="toolbar" className="mb-3 row">
                         <div className="buttons">
-                            {currentUser && currentUser.id === localStorage.getItem('uuid') ? <button type="submit" className="btn btn-success">Salvar</button> : ''}                            
-                            <button type="button" className="btn btn-danger" style={{marginRight: '10px'}} onClick={ () => navigate(-1) }>Voltar</button>                        
+                            {currentUser && currentUser.id === localStorage.getItem('uuid') ? <button type="submit" className="btn btn-success">{formButton[language]['avancar']}</button> : ''}                            
+                            <button type="button" className="btn btn-danger" style={{marginRight: '10px'}} onClick={ () => navigate(-1) }>{formButton[language]['voltar']}</button>                        
                         </div>
                     </div>
                 </form>
@@ -141,24 +144,24 @@ const Profile = (props) => {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title" id="passModalLabel">Alterar senha</h5>
+                        <h5 className="modal-title" id="passModalLabel">{profileModalTitle[language]}</h5>
                         <button type="button" data-dismiss="modal" aria-label="Close" style={{ border: 'none', background: 'transparent'}}>
                         x
                         </button>
                     </div>
                     <div className="modal-body">
                         <div className="mb-3 row">
-                            <label className="form-label col-form-label col-sm-4">Senha</label>
+                            <label className="form-label col-form-label col-sm-4">{profileModalInputTitle[language]['senha']}</label>
                             <div className="col-sm-8"><input name="password" type="password" className="form-control" onChange={handlePassword} value={password} /></div>
                         </div>
                         <div className="mb-3 row">
-                            <label className="form-label col-form-label col-sm-4">Confirme Senha</label>
+                            <label className="form-label col-form-label col-sm-4">{profileModalInputTitle[language]['confirme_senha']}</label>
                             <div className="col-sm-8"><input name="password1" type="password" className="form-control" onChange={handlePassword} value={password1} /></div>
                         </div>
                     </div>
                     <div className="modal-footer">
-                        <input type="button" className="btn btn-success" onClick={onSubmitPassword} defaultValue="Alterar" />
-                        <input type="button" className="btn btn-secondary" data-dismiss="modal" defaultValue="Fechar" />                  
+                        <input type="button" className="btn btn-success" onClick={onSubmitPassword} defaultValue={formButton[language]['avancar']} />
+                        <input type="button" className="btn btn-secondary" data-dismiss="modal" defaultValue={formButton[language]['voltar']} />                  
                     </div>
                     </div>
                 </div>

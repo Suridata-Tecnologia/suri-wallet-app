@@ -10,11 +10,23 @@ import './styles.css';
 import api from '../../services/api';
 
 import Menu from '../../components/Menu';
+import { 
+    listContestationsButton, 
+    listContestationsInput, 
+    listContestationsPagesButton, 
+    listContestationsTableHeader, 
+    listContestationsTitle, 
+    listContestationsModalTitle, 
+    listContestationsModalInputTitle, 
+    listContestationsModalInput,
+    listContestationsModalButton } from '../../utils/language';
 
 const Contestations = (props) => {
     const [ contestations, setContestations ] = useState([]);
     const [ page, setPage ] = useState(1);
     const [ utiCode, setUtiCode ] = useState();
+
+    const language = localStorage.getItem('language');
 
     const navigate = useNavigate();
     const { user_id } = useParams();
@@ -117,26 +129,26 @@ const Contestations = (props) => {
         <Menu /> 
         <div className="container">
             <br />
-            <h1>Lista de contestações</h1>
+            <h1>{listContestationsTitle[language]}</h1>
             <hr />
             <div className="input-group mb-3">
-                <input type="text" className="form-control" placeholder="Buscar por nome ou status" onChange={handleUtiCode} value={utiCode || ''} aria-label="Buscar por nome ou status" aria-describedby="Buscar por nome ou status" />
+                <input type="text" className="form-control" placeholder={listContestationsInput[language]} onChange={handleUtiCode} value={utiCode || ''} aria-label={listContestationsInput[language]} aria-describedby={listContestationsInput[language]} />
                 <div className="input-group-append">
-                    <button className="btn btn-primary" type="button" onClick={handleSearch}><FaSearch />Buscar</button>
+                    <button className="btn btn-primary" type="button" onClick={handleSearch}><FaSearch />{listContestationsButton[language]}</button>
                 </div>
             </div>
             <table className="table table-striped table-bordered table-hover" style={{ fontSize: '12px' }}>
                 <thead>
                     <tr>
-                        <th>Empresa</th> 
-                        <th>Nome</th>                        
-                        <th>Solicitação</th>
-                        <th>Tipo do atendimento</th>
-                        <th>Descrição do atendimento</th>
-                        <th>Alterado por</th>
-                        <th>Status</th>
-                        <th>Criado em</th>
-                        <th>Ações</th>
+                        <th>{listContestationsTableHeader[language]['empresa']}</th> 
+                        <th>{listContestationsTableHeader[language]['nome']}</th>                        
+                        <th>{listContestationsTableHeader[language]['solicitacao']}</th>
+                        <th>{listContestationsTableHeader[language]['tipo_do_atendimento']}</th>
+                        <th>{listContestationsTableHeader[language]['descricao_do_atendimento']}</th>
+                        <th>{listContestationsTableHeader[language]['alterado_por']}</th>
+                        <th>{listContestationsTableHeader[language]['status']}</th>
+                        <th>{listContestationsTableHeader[language]['criado_em']}</th>
+                        <th>{listContestationsTableHeader[language]['acoes']}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -164,20 +176,20 @@ const Contestations = (props) => {
                                         <div className="modal-dialog" role="document">
                                             <div className="modal-content">
                                             <div className="modal-header">
-                                                <h5 className="modal-title" id="passModalLabel">Cancelar contestação</h5>
+                                                <h5 className="modal-title" id="passModalLabel">{listContestationsModalTitle[language]}</h5>
                                                 <button type="button" data-dismiss="modal" aria-label="Close" style={{ border: 'none', background: 'transparent'}}>
                                                 x
                                                 </button>
                                             </div>
                                             <div className="modal-body">
                                                 <div className="mb-3 row">
-                                                    <label className="form-label col-form-label col-sm-4">Motivo do cancelamento</label>
-                                                    <textarea placeholder="Digite o motivo do cancelamento" className="form-control" name={`reason_cancellation`} value={contestation.reason_cancellation || ''} onChange={(e) => handleContestationChange(e, i)}>{contestation.reason_cancellation}</textarea>
+                                                    <label className="form-label col-form-label col-sm-4">{listContestationsModalInputTitle[language]}</label>
+                                                    <textarea placeholder={listContestationsModalInput[language]} className="form-control" name={`reason_cancellation`} value={contestation.reason_cancellation || ''} onChange={(e) => handleContestationChange(e, i)}>{contestation.reason_cancellation}</textarea>
                                                 </div>
                                             </div>
                                             <div className="modal-footer">
-                                                <input type="button" className="btn btn-dark" onClick={()=>handleRemoveContestation(contestation)} defaultValue="Concluir" />
-                                                <input type="button" className="btn btn-danger" id={`cancelButton${contestation.id}`} data-dismiss="modal" defaultValue="Voltar" />                
+                                                <input type="button" className="btn btn-dark" onClick={()=>handleRemoveContestation(contestation)} defaultValue={listContestationsModalButton[language]['avancar']} />
+                                                <input type="button" className="btn btn-danger" id={`cancelButton${contestation.id}`} data-dismiss="modal" defaultValue={listContestationsModalButton[language]['voltar']} />                
                                             </div>
                                             </div>
                                         </div>
@@ -191,8 +203,8 @@ const Contestations = (props) => {
             </table>
             <nav aria-label="Page navigation example">
                 <ul className="pagination">
-                    <li className="page-item"><input type="button" className="page-link" value="Voltar" onClick={ () => page <= 0 ? 1 : setPage(page - 1) } /></li>
-                    <li className="page-item"><input type="button" className="page-link" value="Avançar" onClick={ () => setPage(page + 1)  } /></li>
+                    <li className="page-item"><input type="button" className="page-link" value={listContestationsPagesButton[language]['voltar']} onClick={ () => page <= 0 ? 1 : setPage(page - 1) } /></li>
+                    <li className="page-item"><input type="button" className="page-link" value={listContestationsPagesButton[language]['avancar']} onClick={ () => setPage(page + 1)  } /></li>
                 </ul>
             </nav>
             </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate  } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FaUser, FaKey } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,6 +9,8 @@ import './styles.css';
 import api from '../../services/api';
 import { login, setRules } from "../../services/auth";
 
+import { loginInputText, loginLinkText, loginButtonText } from '../../utils/language';
+
 const Login = (props) => {
     const [ cpf, setCpf ] = useState('');
     const [ code, setCode ] = useState('');
@@ -16,16 +18,27 @@ const Login = (props) => {
     const [ beneficiary, setBeneficiary ] = useState(null);
     const [ channel, setChannel ] = useState('email');
     const [ contact, setContact ] = useState('');
-
+    
+    let language = localStorage.getItem('language');
+    if(language === null){
+        language = 'ptbr'
+    }
+    else{
+        const lang = new URLSearchParams(window.location.search).get('lang'); 
+        language = lang || localStorage.getItem('language');
+    }
+    localStorage.setItem('language', language);
+   
     const { stage } = props;
 
-    const navigate = useNavigate();   
+    const navigate = useNavigate();  
+    
 
     const notify = (message) => toast.success(message);
     const notifyWarn = (message) => toast.warn(message);
 
     useEffect(()=>{
-        if(! beneficiary) navigate('/');
+        if(! beneficiary) navigate(`/?lang=${localStorage.getItem('language')}`);
     }, [beneficiary]);
 
     useEffect(()=>{
@@ -199,13 +212,12 @@ const Login = (props) => {
                                         <div className="input-group-prepend">
                                             <span className="input-group-text"><FaUser /></span>
                                         </div>
-                                        <input type="text" className="form-control input-group-text" value={cpf || ''} onChange={handleCPF} placeholder="Digite seu CPF" />
+                                        <input type="text" className="form-control input-group-text" value={cpf || ''} onChange={handleCPF} placeholder={ loginInputText[language][stage] } />
                                     </>
                                 }
                                 {stage === "2" &&                                 
                                     <>
-                                        <h5 className="title" style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>Confirmação de conta</h5>
-                                        <label className="title" style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>Digite seu e-mail:</label>
+                                        <label className="title" style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>{ loginInputText[language][stage] }</label>
                                         
                                         <input type="text" className="form-control input-group-text" style={{ marginTop: '10px',  width: '100%' }} value={contact} onChange={handleContact} placeholder={`${channel === 'sms' ? '+5511999999999' : 'email@email.com.br'}`} />
                                     </>
@@ -215,7 +227,7 @@ const Login = (props) => {
                                         <div className="input-group-prepend">
                                             <span className="input-group-text"><FaKey /></span>
                                         </div>
-                                        <input type="text" className="form-control input-group-text" value={code || ''} onChange={handleCode} placeholder="Digite o código de verificação" />
+                                        <input type="text" className="form-control input-group-text" value={code || ''} onChange={handleCode} placeholder={ loginInputText[language][stage] } />
                                     </>
                                 }   
                                 {stage === "4" &&                                 
@@ -223,21 +235,18 @@ const Login = (props) => {
                                         <div className="input-group-prepend">
                                             <span className="input-group-text"><FaKey /></span>
                                         </div>
-                                        <input type="password" className="form-control input-group-text" name="password" value={password || ''} onChange={handlePassword} placeholder="Digite a senha" />
+                                        <input type="password" className="form-control input-group-text" name="password" value={password || ''} onChange={handlePassword} placeholder={ loginInputText[language][stage] } />
                                     </>
                                 }                                                     
                             </div>                        
                             <div className="button-group">
                                 <button className="btn btn-dark" onClick={handleSubmit}>
-                                    { stage === "1" && "Buscar"}
-                                    { stage === "2" && "Enviar código"}
-                                    { stage === "3" && "Verificar"}
-                                    { stage === "4" && "Entrar"}
+                                    { loginButtonText[language][stage] }
                                 </button>
                             </div>
                         </form>
                         <hr/>
-                        <button className="btn btn-link" onClick={handleNavigate} >Logar como account</button>
+                        <button className="btn btn-link" onClick={handleNavigate} >{loginLinkText[language]}</button>
                     </div>           
                 </div>
             </div>
