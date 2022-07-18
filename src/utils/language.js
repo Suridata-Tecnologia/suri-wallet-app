@@ -1,5 +1,5 @@
 export const loginInputText = {
-    "ptbr":{
+    "pt-br":{
         "1":"Digite seu CPF",
         "2":"Digite seu e-mail para confirmação de conta:",
         "3":"Digite o código de verificação",
@@ -14,7 +14,7 @@ export const loginInputText = {
 }
 
 export const loginButtonText = {
-    "ptbr":{
+    "pt-br":{
         "1":"Buscar",
         "2":"Enviar código",
         "3":"Verificar",
@@ -29,12 +29,12 @@ export const loginButtonText = {
 }
 
 export const loginLinkText = {
-    "ptbr": "Logar como account",
+    "pt-br": "Logar como account",
     "en": "Log in as account"
 }
 
 export const adminLoginTitleText = {
-    "ptbr": {
+    "pt-br": {
         "email": "E-mail",
         "password": "Senha"
     },
@@ -45,7 +45,7 @@ export const adminLoginTitleText = {
 }
 
 export const adminLoginInputText = {
-    "ptbr": {
+    "pt-br": {
         "email": "Digite o e-mail",
         "password": "Digite a senha"
     },
@@ -56,17 +56,17 @@ export const adminLoginInputText = {
 }
 
 export const adminLoginButtonText = {
-    "ptbr": "Entrar",
+    "pt-br": "Entrar",
     "en": "Submit"
 }
 
 export const adminLoginLinkText = {
-    "ptbr": "Logar como beneficiário",
+    "pt-br": "Logar como beneficiário",
     "en": "Log in as beneficiary"
 }
 
 export const menuLink = {
-    "ptbr": {
+    "pt-br": {
         "contestacoes": "Contestações",
         "meus_atendimentos": "Meus Atendimentos",
         "perfil": "Perfil",
@@ -81,22 +81,22 @@ export const menuLink = {
 }
 
 export const listContestationsTitle = {
-    "ptbr": "Lista de contestações",
+    "pt-br": "Lista de contestações",
     "en": "Contestations list"
 }
 
 export const listContestationsInput = {
-    "ptbr": "Buscar por nome ou status",
+    "pt-br": "Buscar por nome ou status",
     "en": "Search by name or status"
 }
 
 export const listContestationsButton = {
-    "ptbr": "Buscar",
+    "pt-br": "Buscar",
     "en": "Search"
 }
 
 export const listContestationsTableHeader = {
-    "ptbr": {								
+    "pt-br": {								
         "empresa": "Empresa",	
         "nome": "Nome",	
         "solicitacao": "Solicitação",	
@@ -121,7 +121,7 @@ export const listContestationsTableHeader = {
 }
 
 export const listContestationsPagesButton = {
-    "ptbr": {
+    "pt-br": {
         "voltar": "Voltar",
         "avancar": "Avançar"
     },
@@ -132,22 +132,22 @@ export const listContestationsPagesButton = {
 }
 
 export const listContestationsModalTitle = {
-    "ptbr": "Cancelar contestação",
+    "pt-br": "Cancelar contestação",
     "en": "Cancel Contestation"
 }
 
 export const listContestationsModalInputTitle = {
-    "ptbr": "Motivo do cancelamento",
+    "pt-br": "Motivo do cancelamento",
     "en": "Reason for cancellation"
 }
 
 export const listContestationsModalInput = {
-    "ptbr": "Digite o motivo do cancelamento",
+    "pt-br": "Digite o motivo do cancelamento",
     "en": "Enter reason for cancellationn"
 }
 
 export const listContestationsModalButton = {
-    "ptbr": {
+    "pt-br": {
         "avancar": "Concluir",
         "voltar": "Voltar"
     },
@@ -158,17 +158,17 @@ export const listContestationsModalButton = {
 }
 
 export const formContestationTitle = {
-    "ptbr": "Detalhes da contestação",
+    "pt-br": "Detalhes da contestação",
     "en": "Contestation details"
 }
 
 export const formContestationLGPDText = {
-    "ptbr": "Em observância à Lei nº. 13.709/18 – Lei Geral de Proteção de Dados Pessoais e demais normativas aplicáveis sobre proteção de Dados Pessoais, manifesto-me de forma informada, livre, expressa e consciente, no sentido de autorizar a corretora Sciath a realizar a análise necessária junto a operadora de saúde para esclarecer a contestação que estou encaminhando sobre a utilização do plano de saúde acima",
+    "pt-br": "Em observância à Lei nº. 13.709/18 – Lei Geral de Proteção de Dados Pessoais e demais normativas aplicáveis sobre proteção de Dados Pessoais, manifesto-me de forma informada, livre, expressa e consciente, no sentido de autorizar a corretora Sciath a realizar a análise necessária junto a operadora de saúde para esclarecer a contestação que estou encaminhando sobre a utilização do plano de saúde acima",
     "en": "In compliance with Law no. 13.709/18 - General Law for the Protection of Personal Data and other applicable regulations on the protection of Personal Data, I express myself in an informed, free, express and conscious way, in order to authorize the Sciath brokerage to carry out the necessary analysis with the health to clarify the dispute that I am submitting about the use of the health plan above"
 }
 
 export const formButton = {
-    "ptbr": {
+    "pt-br": {
         "avancar": "Salvar",
         "voltar": "Voltar"
     },
@@ -179,7 +179,7 @@ export const formButton = {
 }
 
 export const formContestationInputTile = {
-    "ptbr": {								
+    "pt-br": {								
         "codigo_identificacao": "Código de identificação",	
         "nome": "Nome",	
         "email": "E-mail",	
@@ -214,7 +214,7 @@ export const formContestationInputTile = {
 }
 
 export const formContestationDropdown1 = {
-    "ptbr": {
+    "pt-br": {
         "nao_iniciado": "Não iniciado",
         "em_andamento": "Em andamento",
         "concluido": "Concluido"
@@ -227,7 +227,7 @@ export const formContestationDropdown1 = {
 }
 
 export const formContestationDropdown2 = {
-    "ptbr": {
+    "pt-br": {
         "aceito": "Aceito",
         "nao_aceito": "Não aceito"
     },
@@ -238,17 +238,17 @@ export const formContestationDropdown2 = {
 }
 
 export const profileTitle = {
-    "ptbr": "Dados de cadastro",
+    "pt-br": "Dados de cadastro",
     "en": "Registration data"
 }
 
 export const profileModalTitle = {
-    "ptbr": "Alterar senha",
+    "pt-br": "Alterar senha",
     "en": "Change password"
 }
 
 export const profileModalInputTitle = {
-    "ptbr": {								
+    "pt-br": {								
         "senha": "Senha",	
         "confirme_senha": "Confirme Senha"
     },
@@ -259,7 +259,7 @@ export const profileModalInputTitle = {
 }
 
 export const profileInputTitle = {
-    "ptbr": {								
+    "pt-br": {								
         "nome": "Nome",	
         "cpf": "CPF",	
         "email": "E-mail",	
@@ -278,6 +278,6 @@ export const profileInputTitle = {
 }
 
 export const profileLink = {
-    "ptbr": "Alterar Senha",
+    "pt-br": "Alterar Senha",
     "en": "Change Password"
 }

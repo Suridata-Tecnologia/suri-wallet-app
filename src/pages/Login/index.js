@@ -21,7 +21,7 @@ const Login = (props) => {
     
     let language = localStorage.getItem('language');
     if(language === null){
-        language = 'ptbr'
+        language = 'pt-br'
     }
     else{
         const lang = new URLSearchParams(window.location.search).get('lang'); 

@@ -13,7 +13,7 @@ import Contestations from "./pages/Contestations";
 
 const AllRoute = () => {
   if(localStorage.getItem("language") === null) {
-    localStorage.setItem("language", "ptbr");
+    localStorage.setItem("language", "pt-br");
   }
   return <Outlet />;
 };

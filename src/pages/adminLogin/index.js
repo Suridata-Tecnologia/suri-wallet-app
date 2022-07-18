@@ -16,7 +16,7 @@ const AdminLogin = (props) => {
     
     let language = localStorage.getItem('language');
     if(language === null){
-        language = 'ptbr'
+        language = 'pt-br'
     }
     else{
         const lang = new URLSearchParams(window.location.search).get('lang'); 
@@ -71,7 +71,7 @@ const AdminLogin = (props) => {
     }
 
     function handleNavigate(){
-        navigate(`/?lang=${localStorage.getItem('language') || 'ptbr'}`);
+        navigate(`/?lang=${localStorage.getItem('language') || 'pt-br'}`);
     }
     return (
         <>
