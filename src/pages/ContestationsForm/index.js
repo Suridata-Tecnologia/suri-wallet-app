@@ -215,7 +215,7 @@ const ContestationsForm = (props) => {
                         <div className="col-sm-4"><input placeholder="Nome" name="name" type="text" className="form-control" readOnly defaultValue={params['Descricao_Usuario']} /></div>
                    
                         <label className="form-label col-form-label col-sm-2">{formContestationInputTile[language]['cpf_titular']}</label>
-                        <div className="col-sm-4"><input placeholder="Nome" name="name" type="text" className="form-control" readOnly defaultValue={currentUser.cpf_holder} /></div>
+                        <div className="col-sm-4"><input placeholder={formContestationInputTile[language]['cpf_titular']} name="name" type="text" className="form-control" readOnly defaultValue={currentUser.cpf_holder} /></div>
                     </div>
                     <div className="mb-3 row">
                         <label className="form-label col-form-label col-sm-2">{formContestationInputTile[language]['email']}</label>

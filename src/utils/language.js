@@ -50,7 +50,7 @@ export const adminLoginInputText = {
         "password": "Digite a senha"
     },
     "en": {
-        "email": "Enter your email",
+        "email": "Enter your e-mail",
         "password": "Enter your password"
     }
 }
@@ -153,7 +153,7 @@ export const listContestationsModalButton = {
     },
     "en": {
         "avancar": "Save",
-        "voltar": "back"
+        "voltar": "Back"
     }
 }
 
@@ -174,7 +174,7 @@ export const formButton = {
     },
     "en": {
         "avancar": "Save",
-        "voltar": "back"
+        "voltar": "Back"
     }
 }
 
@@ -197,17 +197,17 @@ export const formContestationInputTile = {
     },
     "en": {			
         "codigo_identificacao": "Identification code",
-        "nome": "name",
-        "email": "Email",
+        "nome": "Name",
+        "email": "E-mail",
         "codigo_procedimento": "Procedure Code",
         "numero_conta": "Account Number",
-        "descricao_procedimento": "Description Procedure",
+        "descricao_procedimento": "Procedure description",
         "status": "Status",
         "descricao": "Description",
         "prestador": "Provider",
-        "cpf_holder": "CPF Holder",
+        "cpf_titular": "CPF Holder",
         "celular": "Mobile",
-        "rede_cred_reembolso": "Rede Accredited/Refund",
+        "rede_cred_reembolso": "Network provider/Refund",
         "data_atendimento": "Date of Service",
         "Tipo_atendimento": "Service Type",				
     }
