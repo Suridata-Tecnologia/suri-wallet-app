@@ -109,7 +109,7 @@ const Login = (props) => {
     }
 
     async function sendConfirmAccountCode(){
-        const data = { cpf, channel, contact }
+        const data = { cpf, channel, contact, language: localStorage.getItem('language') };
 
         await api
         .post("/send-user-account-confirmation", data)
